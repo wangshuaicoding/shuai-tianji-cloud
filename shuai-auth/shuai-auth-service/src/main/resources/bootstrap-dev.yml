@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848 # nacos注册中心
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: cba11b91-d23d-472c-ba63-e89a9065f4c6
+        group: DEFAULT_GROUP
+        ip: 192.168.31.225
+logging:
+  level:
+    com.shuai: debug

@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-@MapperScan("com.tianji.auth.mapper")
+@MapperScan("com.shuai.auth.mapper")
 @SpringBootApplication
 @EnableScheduling
 @Slf4j
