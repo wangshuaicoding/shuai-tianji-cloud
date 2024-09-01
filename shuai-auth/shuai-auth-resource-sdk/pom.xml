@@ -30,20 +30,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.shuai</groupId>
-            <artifactId>shuai-auth</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-core</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.shuai</groupId>
-            <artifactId>shuai-common</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.shuai</groupId>
