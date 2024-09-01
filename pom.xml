@@ -6,7 +6,7 @@
 
     <groupId>com.shuai</groupId>
     <artifactId>shuai-cloud</artifactId>
-    <version>1.0.0</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <!-- 继承 Spring Boot 父工程 -->
@@ -29,7 +29,9 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <shuai.cloud.version>1.0.0</shuai.cloud.version>
+        <!--版本号统一控制，防止造成不一致的问题-->
+        <revision>1.0.1</revision>
+        <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
         <org.projectlombok.version>1.18.30</org.projectlombok.version>
         <spring-cloud.version>2021.0.3</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
@@ -177,6 +179,32 @@
                         <source>8</source> <!-- depending on your project -->
                         <target>8</target> <!-- depending on your project -->
                     </configuration>
+                </plugin>
+                <!-- 统一 revision 版本 -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <version>${flatten-maven-plugin.version}</version>
+                    <configuration>
+                        <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                        <updatePomFile>true</updatePomFile>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>flatten</goal>
+                            </goals>
+                            <id>flatten</id>
+                            <phase>process-resources</phase>
+                        </execution>
+                        <execution>
+                            <goals>
+                                <goal>clean</goal>
+                            </goals>
+                            <id>flatten.clean</id>
+                            <phase>clean</phase>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>

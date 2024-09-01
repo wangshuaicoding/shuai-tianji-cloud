@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.shuai</groupId>
         <artifactId>shuai-auth</artifactId>
-        <version>1.0.0</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>shuai-auth-service</artifactId>
@@ -73,7 +73,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>${project.artifactId}</finalName>
+        <finalName>${project.artifactId}-${revision}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

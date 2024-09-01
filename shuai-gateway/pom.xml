@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.shuai</groupId>
         <artifactId>shuai-cloud</artifactId>
-        <version>1.0.0</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>shuai-gateway</artifactId>
@@ -42,13 +42,15 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
+        <!--对线程池的管理-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
     </dependencies>
     <build>
-        <finalName>${project.artifactId}</finalName>
+        <!--打的jar包名-->
+        <finalName>${project.artifactId}-${revision}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -60,6 +62,7 @@
                         </goals>
                     </execution>
                 </executions>
+                <!--配置项目主类，指定应用程序的入口-->
                 <configuration>
                     <mainClass>com.shuai.gateway.GatewayApplication</mainClass>
                 </configuration>
