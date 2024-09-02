@@ -37,7 +37,7 @@
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
         <mybatis-plus.version>3.4.3</mybatis-plus.version>
         <hutool.version>5.7.17</hutool.version>
-        <swagger.version>3.0.3</swagger.version>
+        <knife4j.version>4.4.0</knife4j.version>
         <mysql.version>8.0.23</mysql.version>
         <ali.sdk.core.version>4.6.0</ali.sdk.core.version>
         <ali.sdk.kms.version>2.10.1</ali.sdk.kms.version>
@@ -85,8 +85,8 @@
             <!--knife4j-->
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-spring-boot-starter</artifactId>
-                <version>${swagger.version}</version>
+                <artifactId>knife4j-openapi2-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
             </dependency>
             <!--腾讯云-->
             <dependency>

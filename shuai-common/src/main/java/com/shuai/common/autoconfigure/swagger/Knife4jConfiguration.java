@@ -1,14 +1,11 @@
 package com.shuai.common.autoconfigure.swagger;
 
-import cn.hutool.core.convert.ConverterRegistry;
 import com.fasterxml.classmate.TypeResolver;
 import com.shuai.common.domain.R;
-import com.shuai.common.utils.TjTemporalConverter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -17,10 +14,9 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
 
 @Configuration
-@ConditionalOnProperty(prefix = "tj.swagger", name = "enable",havingValue = "true")
+@ConditionalOnProperty(prefix = "shuai.swagger", name = "enable",havingValue = "true")
 @EnableConfigurationProperties(SwaggerConfigProperties.class)
 public class Knife4jConfiguration {
 
@@ -50,22 +46,5 @@ public class Knife4jConfiguration {
                 .paths(PathSelectors.any())
                 .build();
 
-    }
-    @Bean
-    @Primary
-    @ConditionalOnProperty(prefix = "tj.swagger", name = "enableResponseWrap",havingValue = "true")
-    public BaseSwaggerResponseModelPlugin baseSwaggerResponseModelPlugin(){
-        return new BaseSwaggerResponseModelPlugin();
-    }
-    @Bean
-    @Primary
-    @ConditionalOnProperty(prefix = "tj.swagger", name = "enableResponseWrap",havingValue = "true")
-    public BaseSwaggerResponseBuilderPlugin baseSwaggerResponseBuilderPlugin(){
-        return new BaseSwaggerResponseBuilderPlugin();
-    }
-    {
-        // hutool的日期转换器加载
-        ConverterRegistry converterRegistry = ConverterRegistry.getInstance();
-        converterRegistry.putCustom(LocalDateTime.class, new TjTemporalConverter(LocalDateTime.class));
     }
 }

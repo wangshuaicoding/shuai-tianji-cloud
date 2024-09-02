@@ -6,13 +6,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.io.Serializable;
 
 /**
- * @ClassName SwaggerConfigProperties
- * @author wusongsong
- * @since 2022/6/27 13:47
- * @version 1.0.0
+ *  添加 Swagger 属性配置类，用于封装 Swagger 配置参数
  **/
 @Data
-@ConfigurationProperties(prefix = "tj.swagger")
+@ConfigurationProperties(prefix = "shuai.swagger")
 public class SwaggerConfigProperties implements Serializable {
 
     private Boolean enable = false;
