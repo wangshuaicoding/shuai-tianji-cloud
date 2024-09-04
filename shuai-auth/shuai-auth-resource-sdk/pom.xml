@@ -37,7 +37,7 @@
         <dependency>
             <groupId>com.shuai</groupId>
             <artifactId>shuai-auth-common</artifactId>
-            <version>1.0.0</version>
+            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

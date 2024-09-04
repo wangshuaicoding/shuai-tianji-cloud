@@ -45,6 +45,15 @@ public class Knife4jConfiguration {
                 .apis(RequestHandlerSelectors.basePackage(swaggerConfigProperties.getPackagePath()))
                 .paths(PathSelectors.any())
                 .build();
-
     }
+
+    /**
+     * TypeResolver:把这个类型注入到容器中，不然报找不到的错误
+     * @return
+     */
+    @Bean
+    public TypeResolver typeResolver() {
+        return new TypeResolver();
+    }
+
 }

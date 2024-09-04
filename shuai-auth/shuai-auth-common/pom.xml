@@ -18,11 +18,10 @@
     </properties>
 
     <dependencies>
-        <!--domain-->
         <dependency>
             <groupId>com.shuai</groupId>
             <artifactId>shuai-common</artifactId>
-            <version>1.0.0</version>
+            <version>${revision}</version>
         </dependency>
     </dependencies>
 </project>
