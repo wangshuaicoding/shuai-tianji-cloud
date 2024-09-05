@@ -1,5 +1,5 @@
 server:
-  port: 11010  #端口
+  port: 10011  #端口
   tomcat:
     uri-encoding: UTF-8   #服务编码
 spring:
@@ -22,7 +22,7 @@ spring:
             refresh: false
     gateway:
       routes:
-        - id: as
+        - id: as  # 每个路由的唯一标识
           uri: lb://auth-service
           predicates:
             - Path=/as/**

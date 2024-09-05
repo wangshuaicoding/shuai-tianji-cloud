@@ -10,12 +10,10 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 import javax.annotation.Resource;
 
 @Configuration
-@EnableSwagger2WebMvc
 @ConditionalOnProperty(prefix = "tj.swagger", name = "enable",havingValue = "true")
 @EnableConfigurationProperties(SwaggerProperties.class)
 public class SwaggerConfiguration {
@@ -35,10 +33,10 @@ public class SwaggerConfiguration {
                         .title(swaggerProperties.getTitle())
                         .description(swaggerProperties.getDescription())
                         .contact(new Contact(
-                                this.swaggerProperties.getContactName(),
-                                this.swaggerProperties.getContactUrl(),
-                                this.swaggerProperties.getContactEmail()))
-                        .version(this.swaggerProperties.getVersion())
+                                swaggerProperties.getContactName(),
+                                swaggerProperties.getContactUrl(),
+                                swaggerProperties.getContactEmail()))
+                        .version(swaggerProperties.getVersion())
                         .build())
                 .select()
                 // 这里指定Controller扫描包路径

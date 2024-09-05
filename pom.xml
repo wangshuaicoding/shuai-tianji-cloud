@@ -95,7 +95,6 @@
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
-
             <!--腾讯云-->
             <dependency>
                 <groupId>com.tencentcloudapi</groupId>
