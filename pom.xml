@@ -37,7 +37,7 @@
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
         <mybatis-plus.version>3.4.3</mybatis-plus.version>
         <hutool.version>5.7.17</hutool.version>
-        <springdoc.version>1.7.0</springdoc.version>
+        <swagger.version>2.10.5</swagger.version>
         <knife4j.version>4.4.0</knife4j.version>
         <mysql.version>8.0.23</mysql.version>
         <ali.sdk.core.version>4.6.0</ali.sdk.core.version>
@@ -83,11 +83,6 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId> <!-- 接口文档 UI：默认 -->
-                <artifactId>springdoc-openapi-ui</artifactId>
-                <version>${springdoc.version}</version>
-            </dependency>
 
             <!--knife4j-->
             <dependency>
@@ -96,10 +91,11 @@
                 <version>${knife4j.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.github.xiaoymin</groupId> <!-- 接口文档 UI：knife4j【网关专属】 -->
-                <artifactId>knife4j-gateway-spring-boot-starter</artifactId>
-                <version>${knife4j.version}</version>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
             </dependency>
+
             <!--腾讯云-->
             <dependency>
                 <groupId>com.tencentcloudapi</groupId>
