@@ -10,7 +10,7 @@ import java.io.Serializable;
  **/
 @Data
 @ConfigurationProperties(prefix = "shuai.swagger")
-public class SwaggerConfigProperties implements Serializable {
+public class SwaggerProperties implements Serializable {
 
     private Boolean enable = false;
     private Boolean enableResponseWrap = false;
