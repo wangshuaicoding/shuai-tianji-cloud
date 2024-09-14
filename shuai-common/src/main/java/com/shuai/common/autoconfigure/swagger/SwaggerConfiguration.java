@@ -14,12 +14,12 @@ import springfox.documentation.spring.web.plugins.Docket;
 import javax.annotation.Resource;
 
 @Configuration
-@ConditionalOnProperty(prefix = "tj.swagger", name = "enable",havingValue = "true")
-@EnableConfigurationProperties(SwaggerProperties.class)
+@ConditionalOnProperty(prefix = "shuai.swagger", name = "enable",havingValue = "true")
+@EnableConfigurationProperties(SwaggerConfigProperties.class)
 public class SwaggerConfiguration {
 
     @Resource
-    private SwaggerProperties swaggerProperties;
+    private SwaggerConfigProperties swaggerConfigProperties;
 
     @Bean(value = "defaultApi2")
     public Docket defaultApi2() {
@@ -30,17 +30,17 @@ public class SwaggerConfiguration {
         //     docket.additionalModels(typeResolver.resolve(R.class));
         // }
         return docket.apiInfo(new ApiInfoBuilder()
-                        .title(swaggerProperties.getTitle())
-                        .description(swaggerProperties.getDescription())
+                        .title(this.swaggerConfigProperties.getTitle())
+                        .description(this.swaggerConfigProperties.getDescription())
                         .contact(new Contact(
-                                swaggerProperties.getContactName(),
-                                swaggerProperties.getContactUrl(),
-                                swaggerProperties.getContactEmail()))
-                        .version(swaggerProperties.getVersion())
+                                this.swaggerConfigProperties.getContactName(),
+                                this.swaggerConfigProperties.getContactUrl(),
+                                this.swaggerConfigProperties.getContactEmail()))
+                        .version(this.swaggerConfigProperties.getVersion())
                         .build())
                 .select()
                 // 这里指定Controller扫描包路径
-                .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getPackagePath()))
+                .apis(RequestHandlerSelectors.basePackage(swaggerConfigProperties.getPackagePath()))
                 .paths(PathSelectors.any())
                 .build();
     }

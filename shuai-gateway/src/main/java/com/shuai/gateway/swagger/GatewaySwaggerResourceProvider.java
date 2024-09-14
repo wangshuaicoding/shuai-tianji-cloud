@@ -54,7 +54,7 @@ public class GatewaySwaggerResourceProvider implements SwaggerResourcesProvider 
             swaggerResource.setUrl("/" + path + SWAGGER2_URL);
             // 设置名称
             swaggerResource.setName(name);
-            swaggerResource.setSwaggerVersion("3.0.0");
+            swaggerResource.setSwaggerVersion("2.10.5");
             resources.add(swaggerResource);
         });
         return resources;

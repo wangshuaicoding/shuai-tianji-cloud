@@ -29,16 +29,20 @@ encrypt:
     password: tj123321   #证书库密码
     secret: tj123321   #秘钥
 
+knife4j:
+  enable: true # 是否开启 Swagger 文档的 Knife4j UI 界面
+  setting:
+    language: zh_cn
+
 shuai:
   swagger:
-    enable: true
-    enableResponseWrap: true
+    enable: true   # 若为false 下面对文档的说明将不会被显示
     package-path: com.shuai.auth.controller
-    title: 天机学堂 - 权限微服务接口文档
+    title: 少帅 - 权限微服务接口文档
     description: 该服务用于管理权限相关信息
-    contact-name: 传智教育·研究院
-    contact-url: http://www.itcast.cn/
-    contact-email: zhanghuyi@itcast.cn
+    contact-name: 少帅武器库
+    contact-url: http://www.shaoshuaikeji.cn/
+    contact-email: wangshuaicoding@163.com
     version: v1.0
   auth:
     resource:
