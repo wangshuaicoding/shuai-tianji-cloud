@@ -1,0 +1,54 @@
+server:
+  port: 19085  #端口
+  tomcat:
+    uri-encoding: UTF-8   #服务编码
+spring:
+  profiles:
+    active: local
+  application:
+    name: message-service
+  cloud:
+    nacos:
+      config:
+        username: nacos
+        password: nacos
+        file-extension: yaml
+        shared-configs: # 共享配置
+          - data-id: shared-spring.yaml # 共享spring配置
+            refresh: false
+          - data-id: shared-redis.yaml # 共享redis配置
+            refresh: false
+          - data-id: shared-mybatis.yaml # 共享mybatis配置
+            refresh: false
+          - data-id: shared-logs.yaml # 共享日志配置
+            refresh: false
+          - data-id: shared-feign.yaml # 共享feign配置
+            refresh: false
+          - data-id: shared-mq.yaml # 共享mq配置
+            refresh: false
+shuai:
+  swagger:
+    enable: true
+    package-path: com.shuai.message.controller
+    title: 少帅 - 消息中心接口文档
+    description: 该服务用于站内信、通知管理、短信发送等功能
+    contact-name: 少帅科技
+    contact-url: http://www.shaoshuaikeji.cn/
+    contact-email: wangshuaicoding@163.com
+    version: v1.0
+  auth:
+    resource:
+      enable: true
+      excludeLoginPaths:
+        - /students/register
+        - /users/detail/{isStaff}
+        - /users/list
+        - GET:/users/{id}
+        - /users/{id}/type
+        - /users/ids
+  jdbc:
+    database: tj_message
+  sms:
+    ali:
+      accessId: LTAI5tHyKqhaN6k3u2jVeiX6
+      accessSecret: aEQn9qWGLzZPFHcnfHALS474VeiTSY

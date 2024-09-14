@@ -1,13 +1,11 @@
 package com.shuai.auth.service.impl;
 
 import com.shuai.api.dto.user.LoginFormDTO;
-import com.shuai.auth.common.constants.JwtConstants;
 import com.shuai.auth.service.IAccountService;
 import com.shuai.auth.service.ILoginRecordService;
 import com.shuai.auth.util.JwtTool;
 import com.shuai.common.domain.dto.LoginUserDTO;
-import com.shuai.common.utils.BooleanUtils;
-import com.shuai.common.utils.WebUtils;
+import com.shuai.common.exceptions.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -30,21 +28,21 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public String login(LoginFormDTO loginDTO, boolean isStaff) {
-        // 1.查询并校验用户信息
+        // // 1.查询并校验用户信息
         // LoginUserDTO detail = userClient.queryUserDetail(loginDTO, isStaff);
         // if (detail == null) {
         //     throw new BadRequestException("登录信息有误");
         // }
-
-        // 2.基于JWT生成登录token
-        // 2.1.设置记住我标记
+        //
+        // // 2.基于JWT生成登录token
+        // // 2.1.设置记住我标记
         // detail.setRememberMe(loginDTO.getRememberMe());
         // // 2.2.生成token
         // String token = generateToken(detail);
-
-        // 3.计入登录信息表
+        //
+        // // 3.计入登录信息表
         // loginRecordService.loginSuccess(loginDTO.getCellPhone(), detail.getUserId());
-        // 4.返回结果
+        // // 4.返回结果
         // return token;
         return null;
     }

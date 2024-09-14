@@ -22,6 +22,7 @@
         <module>shuai-gateway</module>
         <module>shuai-auth</module>
         <module>shuai-user</module>
+        <module>shuai-message</module>
     </modules>
 
     <properties>
