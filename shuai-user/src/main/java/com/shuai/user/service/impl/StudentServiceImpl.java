@@ -36,7 +36,6 @@ public class StudentServiceImpl implements IStudentService {
 
     private final IUserService userService;
     private final IUserDetailService detailService;
-    // private final TradeClient tradeClient;
 
     @Override
     @Transactional

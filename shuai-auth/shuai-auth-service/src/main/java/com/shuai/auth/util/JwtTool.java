@@ -37,9 +37,9 @@ public class JwtTool {
 
     /**
      * 创建 access-token
-     *
-     * @param userDTO 用户信息
-     * @return access-token
+     * Header 头部信息，主要声明了JWT的签名算法等信息
+     * Payload 载荷信息，主要承载了各种声明并传递明文数据
+     * Signature 签名，拥有该部分的JWT被称为JWS，也就是签了名的JWT，用于校验数据
      */
     public String createToken(LoginUserDTO userDTO) {
         // 1.生成jws
@@ -57,13 +57,18 @@ public class JwtTool {
      * @return 刷新token
      */
     public String createRefreshToken(LoginUserDTO userDetail) {
-        // 1.生成 JTI
+        // 1.生成 JTI（JTI是指JWT令牌标识符，即 JSON Web Token (JSON网页令牌) 的标识符。）
         String jti = UUID.randomUUID().toString(true);
         // 2.生成jwt
         // 2.1.如果是记住我，则有效期7天，否则30分钟
         Duration ttl = BooleanUtils.isTrue(userDetail.getRememberMe()) ?
                 JwtConstants.JWT_REMEMBER_ME_TTL : JWT_REFRESH_TTL;
         // 2.2.生成token
+        /**
+        * jti 声明：
+         * jti（JWT ID）是一个唯一的标识符，用于标识每个 JWT 令牌。
+         * 它可以帮助系统跟踪和验证 JWT 是否已经被使用过，从而提高安全性。
+        */
         String token = JWT.create()
                 .setJWTId(jti)
                 .setPayload(JwtConstants.PAYLOAD_USER_KEY, userDetail)
@@ -88,6 +93,7 @@ public class JwtTool {
         // 2.校验并解析jwt
         JWT jwt;
         try {
+            // 解析并验证签名算法 2024/9/15 15:11 By 少帅
             jwt = JWT.of(refreshToken).setSigner(jwtSigner);
         } catch (Exception e) {
             throw new BadRequestException(400, AuthErrorInfo.Msg.INVALID_TOKEN, e);

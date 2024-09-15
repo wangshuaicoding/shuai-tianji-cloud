@@ -24,6 +24,12 @@ spring:
             refresh: false
           - data-id: shared-feign.yaml # 共享feign配置
             refresh: false
+
+knife4j:
+  enable: true # 是否开启 Swagger 文档的 Knife4j UI 界面
+  setting:
+    language: zh_cn
+
 shuai:
   swagger:
     enable: true
@@ -46,4 +52,4 @@ shuai:
         - /users/ids
         - /users/me
   jdbc:
-    database: tj_user
+    database: shuai_user

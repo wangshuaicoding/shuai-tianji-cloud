@@ -4,12 +4,12 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.shuai.common.domain.po.BaseEntity;
 import com.shuai.common.enums.UserType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("user_detail")
-public class UserDetail implements Serializable {
+public class UserDetail extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -104,26 +104,6 @@ public class UserDetail implements Serializable {
      * 角色id
      */
     private Long roleId;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
-
-    /**
-     * 创建者id
-     */
-    private Long creater;
-
-    /**
-     * 更新者id
-     */
-    private Long updater;
 
     /**
      * 部门id

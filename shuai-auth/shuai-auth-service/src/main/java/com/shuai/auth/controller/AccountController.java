@@ -26,19 +26,19 @@ public class AccountController {
 
     @ApiOperation("登录并获取token")
     @PostMapping(value = "/login")
-    public String loginByPw(@RequestBody LoginFormDTO loginFormDTO) {
+    public String loginByPw(@RequestBody LoginFormDTO loginFormDTO) throws UnsupportedEncodingException {
         return accountService.login(loginFormDTO, false);
     }
 
     @ApiOperation("管理端登录并获取token")
     @PostMapping(value = "/admin/login")
-    public String adminLoginByPw(@RequestBody LoginFormDTO loginFormDTO) {
+    public String adminLoginByPw(@RequestBody LoginFormDTO loginFormDTO) throws UnsupportedEncodingException {
         return accountService.login(loginFormDTO, true);
     }
 
     @ApiOperation("退出登录")
     @PostMapping(value = "/logout")
-    public void logout() {
+    public void logout() throws UnsupportedEncodingException {
         accountService.logout();
     }
 

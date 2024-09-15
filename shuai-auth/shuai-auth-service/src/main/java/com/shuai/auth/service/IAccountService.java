@@ -3,6 +3,8 @@ package com.shuai.auth.service;
 
 import com.shuai.api.dto.user.LoginFormDTO;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * <p>
  * 账号表，平台内所有用户的账号、密码信息 服务类
@@ -13,9 +15,9 @@ import com.shuai.api.dto.user.LoginFormDTO;
  */
 public interface IAccountService{
 
-    String login(LoginFormDTO loginFormDTO, boolean isStaff);
+    String login(LoginFormDTO loginFormDTO, boolean isStaff) throws UnsupportedEncodingException;
 
-    void logout();
+    void logout() throws UnsupportedEncodingException;
 
-    String refreshToken(String refreshToken);
+    String refreshToken(String refreshToken) throws UnsupportedEncodingException;
 }

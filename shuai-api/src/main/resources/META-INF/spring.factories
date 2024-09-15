@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.shuai.api.config.FallbackConfig, \
   com.shuai.api.config.RequestIdRelayConfiguration, \
   com.shuai.api.config.RoleCacheConfig

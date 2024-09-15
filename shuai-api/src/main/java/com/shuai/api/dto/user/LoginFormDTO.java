@@ -14,7 +14,7 @@ public class LoginFormDTO {
     private Integer type;
     @ApiModelProperty(value = "用户名", example = "jack")
     private String username;
-    @ApiModelProperty(value = "手机号", example = "13800010001")
+    @ApiModelProperty(value = "手机号", example = "13500010003")
     private String cellPhone;
     @ApiModelProperty(value = "密码", example = "123", required = true)
     @NotNull

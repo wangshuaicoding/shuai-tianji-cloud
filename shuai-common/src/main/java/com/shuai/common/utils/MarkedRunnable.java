@@ -7,6 +7,7 @@ import java.util.Map;
 public class MarkedRunnable implements Runnable{
     private Runnable runnable;
     private Map<String, String> context;
+
     public MarkedRunnable(Runnable runnable) {
         this.runnable = runnable;
         this.context = MDC.getCopyOfContextMap();
