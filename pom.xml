@@ -39,7 +39,7 @@
         <!--监控相关-->
         <skywalking.version>8.12.0</skywalking.version>
         <mybatis-plus.version>3.4.3</mybatis-plus.version>
-        <hutool.version>5.7.17</hutool.version>
+        <hutool.version>5.8.29</hutool.version>
         <swagger.version>2.10.5</swagger.version>
         <knife4j.version>4.4.0</knife4j.version>
         <mysql.version>8.0.23</mysql.version>
@@ -89,7 +89,12 @@
                 <artifactId>apm-toolkit-opentracing</artifactId>
                 <version>${skywalking.version}</version>
             </dependency>
-
+            <!--工具类相关-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
             <!-- 数据库驱动包管理 -->
             <dependency>
                 <groupId>mysql</groupId>

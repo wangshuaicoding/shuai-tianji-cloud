@@ -50,12 +50,6 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
-        <!--auth-sdk-->
-        <dependency>
-            <groupId>com.shuai</groupId>
-            <artifactId>shuai-auth-resource-sdk</artifactId>
-            <version>${revision}</version>
-        </dependency>
         <!--api-->
         <dependency>
             <groupId>com.shuai</groupId>

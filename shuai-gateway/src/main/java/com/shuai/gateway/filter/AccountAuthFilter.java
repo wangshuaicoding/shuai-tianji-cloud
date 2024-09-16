@@ -1,8 +1,9 @@
 package com.shuai.gateway.filter;
 
-import com.shuai.authsdk.gateway.util.AuthUtil;
+import com.shuai.common.constants.JwtConstants;
 import com.shuai.common.domain.R;
 import com.shuai.common.domain.dto.LoginUserDTO;
+import com.shuai.common.utils.AuthUtil;
 import com.shuai.gateway.config.AuthProperties;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -15,8 +16,8 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
-import static com.shuai.auth.common.constants.JwtConstants.AUTHORIZATION_HEADER;
-import static com.shuai.auth.common.constants.JwtConstants.USER_HEADER;
+import static com.shuai.common.constants.JwtConstants.USER_HEADER;
+
 
 @Component
 public class AccountAuthFilter implements GlobalFilter, Ordered {
@@ -45,7 +46,7 @@ public class AccountAuthFilter implements GlobalFilter, Ordered {
         }
 
         // 3.尝试获取用户信息
-        List<String> authHeaders = exchange.getRequest().getHeaders().get(AUTHORIZATION_HEADER);
+        List<String> authHeaders = exchange.getRequest().getHeaders().get(JwtConstants.AUTHORIZATION_HEADER);
         String token = authHeaders == null ? "" : authHeaders.get(0);
         R<LoginUserDTO> r = authUtil.parseToken(token);
 

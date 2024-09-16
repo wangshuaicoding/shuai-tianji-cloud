@@ -8,3 +8,9 @@ spring:
         namespace: 4068a275-597e-4c58-b6b5-ac70e3f6d2ac
         group: DEFAULT_GROUP
         ip: 192.168.1.39
+
+# 日志文件配置
+logging:
+  level:
+    # 配置自己写的 MyBatis Mapper 打印日志
+    com.shuai.user: debug

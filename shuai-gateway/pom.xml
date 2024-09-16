@@ -20,8 +20,14 @@
     <dependencies>
         <dependency>
             <groupId>com.shuai</groupId>
-            <artifactId>shuai-auth-gateway-sdk</artifactId>
+            <artifactId>shuai-common</artifactId>
             <version>${revision}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>

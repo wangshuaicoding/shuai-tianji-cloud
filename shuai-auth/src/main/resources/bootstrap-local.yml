@@ -9,3 +9,8 @@ spring:
         group: DEFAULT_GROUP
         ip: 127.0.0.1
 
+# 日志文件配置
+logging:
+  level:
+    # 配置自己写的 MyBatis Mapper 打印日志
+    com.shuai.auth: debug

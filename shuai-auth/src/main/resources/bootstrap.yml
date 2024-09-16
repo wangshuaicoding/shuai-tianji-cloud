@@ -1,12 +1,12 @@
 server:
-  port: 19085  #端口
+  port: 19081  #端口
   tomcat:
     uri-encoding: UTF-8   #服务编码
 spring:
   profiles:
     active: local
   application:
-    name: message-service
+    name: auth-service
   cloud:
     nacos:
       config:
@@ -20,14 +20,12 @@ spring:
             refresh: false
           - data-id: shared-mybatis.yaml # 共享mybatis配置
             refresh: false
-          - data-id: shared-feign.yaml # 共享feign配置
-            refresh: false
 
 # 日志文件配置。注意，如果 logging.file.name 不放在 bootstrap.yaml 配置文件，而是放在 application.yaml 中，会导致出现 LOG_FILE_IS_UNDEFINED 文件
 logging:
   file:
     name: ${user.home}/logs/${spring.application.name}.log # 日志文件名，全路径
-
+    
 knife4j:
   enable: true # 是否开启 Swagger 文档的 Knife4j UI 界面
   setting:
@@ -35,29 +33,21 @@ knife4j:
 
 shuai:
   swagger:
-    enable: true
-    package-path: com.shuai.message.controller
-    title: 少帅 - 消息中心接口文档
-    description: 该服务用于站内信、通知管理、短信发送等功能
-    contact-name: 少帅科技
+    enable: true   # 若为false 下面对文档的说明将不会被显示
+    package-path: com.shuai.auth.controller
+    title: 少帅 - 权限微服务接口文档
+    description: 该服务用于管理权限相关信息
+    contact-name: 少帅武器库
     contact-url: http://www.shaoshuaikeji.cn/
     contact-email: wangshuaicoding@163.com
     version: v1.0
   auth:
     resource:
       enable: true
-      excludeLoginPaths:
-        - /students/register
-        - /users/detail/{isStaff}
-        - /users/list
-        - GET:/users/{id}
-        - /users/{id}/type
-        - /users/ids
+      includeLoginPaths:
+        - /menus/me
+        - /accounts/logout
   jdbc:
-    database: shuai_message
+    database: shuai_auth
   info:
-    base-package: com.shuai.message
-  sms:
-    ali:
-      accessId: LTAI5tHyKqhaN6k3u2jVeiX6
-      accessSecret: aEQn9qWGLzZPFHcnfHALS474VeiTSY
+    base-package: com.shuai.auth
