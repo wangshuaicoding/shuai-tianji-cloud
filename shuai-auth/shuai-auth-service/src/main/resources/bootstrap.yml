@@ -20,8 +20,6 @@ spring:
             refresh: false
           - data-id: shared-mybatis.yaml # 共享mybatis配置
             refresh: false
-          - data-id: shared-logs.yaml # 共享日志配置
-            refresh: false
 encrypt:
   key-store:
     alias: tjxt  #别名
@@ -52,3 +50,5 @@ shuai:
         - /accounts/logout
   jdbc:
     database: shuai_auth
+  info:
+    base-package: com.shuai.auth

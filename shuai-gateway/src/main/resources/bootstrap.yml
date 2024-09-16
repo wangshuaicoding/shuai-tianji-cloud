@@ -18,8 +18,6 @@ spring:
             refresh: false  # 是否支持动态刷新（不开启减少了网络通信等一系列的网络波动）
           - data-id: shared-redis.yaml # 共享redis配置
             refresh: false
-          - data-id: shared-logs.yaml # 共享日志配置
-            refresh: false
     gateway:
       routes:
         - id: as  # 每个路由的唯一标识
@@ -53,7 +51,10 @@ spring:
             allowedHeaders: "*" # 允许在请求中携带的头信息
             allowCredentials: true # 是否允许携带cookie
             maxAge: 360000 # 这次跨域检测的有效期
-
-logging:
-  level:
-    com.shuai: debug
+            
+shuai:
+  info:
+    base-package: com.shuai.auth
+#logging:
+#  level:
+#    com.shuai: debug

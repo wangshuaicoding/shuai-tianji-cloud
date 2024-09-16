@@ -8,6 +8,3 @@ spring:
         namespace: 4068a275-597e-4c58-b6b5-ac70e3f6d2ac
         group: DEFAULT_GROUP
         ip: 127.0.0.1
-logging:
-  level:
-    com.shuai: debug
