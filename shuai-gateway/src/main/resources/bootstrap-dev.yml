@@ -1,8 +1,28 @@
+--- #################### 注册中心相关配置 ####################
 spring:
   cloud:
     nacos:
-      server-addr: 127.0.0.1:8848 # nacos注册中心
+      server-addr: 127.0.0.1:8848 # Nacos 服务器地址
+      username: nacos
+      password: nacos
       discovery:
         namespace: f923fb34-cb0a-4c06-8fca-ad61ea61a3f0
         group: DEFAULT_GROUP
         ip: 127.0.0.1
+
+--- #################### 配置中心相关配置 ####################
+spring:
+  cloud:
+    nacos:
+      # Nacos Config 配置项，对应 NacosConfigProperties 配置属性类
+      config:
+        namespace: f923fb34-cb0a-4c06-8fca-ad61ea61a3f0 # 命名空间。这里使用 local 开发环境
+        group: DEFAULT_GROUP # 使用的 Nacos 配置分组，默认为 DEFAULT_GROUP
+        file-extension: yaml # 使用的 Nacos 配置集的 dataId 的文件拓展名，同时也是 Nacos 配置集的配置格式，默认为 properties
+        shared-configs: # 共享配置
+          - data-id: gateway-service-dev.yaml # 共享redis配置
+            refresh: false
+          - data-id: shared-spring-dev.yaml # 共享spring配置
+            refresh: false  # 是否支持动态刷新（不开启减少了网络通信等一系列的网络波动）
+          - data-id: shared-redis-dev.yaml # 共享redis配置
+            refresh: false

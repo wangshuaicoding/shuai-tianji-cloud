@@ -1,16 +1,27 @@
+--- #################### 注册中心相关配置 ####################
 spring:
   cloud:
     nacos:
       server-addr: 127.0.0.1:8848 # nacos注册中心
+      username: nacos
+      password: nacos
       discovery:
-        username: nacos
-        password: nacos
         namespace: 4068a275-597e-4c58-b6b5-ac70e3f6d2ac
         group: DEFAULT_GROUP
         ip: 127.0.0.1
 
-# 日志文件配置
-logging:
-  level:
-    # 配置自己写的 MyBatis Mapper 打印日志
-    com.shuai.auth: debug
+--- #################### 配置中心相关配置 ####################
+spring:
+  cloud:
+    nacos:
+      config:
+        namespace: 4068a275-597e-4c58-b6b5-ac70e3f6d2ac # 命名空间。这里使用 local 开发环境
+        group: DEFAULT_GROUP # 使用的 Nacos 配置分组，默认为 DEFAULT_GROUP
+        file-extension: yaml
+        shared-configs: # 共享配置
+          - data-id: shared-spring-local.yaml # 共享spring配置
+            refresh: false
+          - data-id: shared-redis-local.yaml # 共享redis配置
+            refresh: false
+          - data-id: shared-mybatis-local.yaml # 共享mybatis配置
+            refresh: false

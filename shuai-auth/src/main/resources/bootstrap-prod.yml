@@ -2,9 +2,25 @@ spring:
   cloud:
     nacos:
       server-addr: 127.0.0.1:8848 # nacos注册中心
+      username: nacos
+      password: nacos
       discovery:
-        username: nacos
-        password: nacos
         namespace: 8c8f6553-ed31-407f-913a-bc6153706a84
         group: DEFAULT_GROUP
         ip: 192.168.31.225
+
+--- #################### 配置中心相关配置 ####################
+spring:
+  cloud:
+    nacos:
+      config:
+        namespace: 8c8f6553-ed31-407f-913a-bc6153706a84 # 命名空间。这里使用 local 开发环境
+        group: DEFAULT_GROUP # 使用的 Nacos 配置分组，默认为 DEFAULT_GROUP
+        file-extension: yaml
+        shared-configs: # 共享配置
+          - data-id: shared-spring-prod.yaml # 共享spring配置
+            refresh: false
+          - data-id: shared-redis-prod.yaml # 共享redis配置
+            refresh: false
+          - data-id: shared-mybatis-prod.yaml # 共享mybatis配置
+            refresh: false

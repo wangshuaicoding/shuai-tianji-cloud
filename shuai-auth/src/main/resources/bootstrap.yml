@@ -7,24 +7,14 @@ spring:
     active: local
   application:
     name: auth-service
-  cloud:
-    nacos:
-      config:
-        username: nacos
-        password: nacos
-        file-extension: yaml
-        shared-configs: # 共享配置
-          - data-id: shared-spring.yaml # 共享spring配置
-            refresh: false
-          - data-id: shared-redis.yaml # 共享redis配置
-            refresh: false
-          - data-id: shared-mybatis.yaml # 共享mybatis配置
-            refresh: false
 
 # 日志文件配置。注意，如果 logging.file.name 不放在 bootstrap.yaml 配置文件，而是放在 application.yaml 中，会导致出现 LOG_FILE_IS_UNDEFINED 文件
 logging:
   file:
     name: ${user.home}/logs/${spring.application.name}.log # 日志文件名，全路径
+  level:
+    # 配置自己写的 MyBatis Mapper 打印日志
+    com.shuai.auth: debug
     
 knife4j:
   enable: true # 是否开启 Swagger 文档的 Knife4j UI 界面
