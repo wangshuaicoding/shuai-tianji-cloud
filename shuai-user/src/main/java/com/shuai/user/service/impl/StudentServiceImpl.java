@@ -73,7 +73,6 @@ public class StudentServiceImpl implements IStudentService {
 
         // 2.查询购买的课程数量
         List<Long> stuIds = records.stream().map(UserDetail::getId).collect(Collectors.toList());
-        // Map<Long, Integer> numMap = tradeClient.countEnrollCourseOfStudent(stuIds);
 
         // 3.处理vo
         List<StudentPageVo> list = new ArrayList<>(records.size());

@@ -188,5 +188,4 @@ public class PrivilegeController {
         privilegesService.deleteRolePrivileges(roleId, privilegeIds);
     }
 
-
 }

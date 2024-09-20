@@ -20,6 +20,12 @@ public class LoadPrivilegeRunner{
     private final IPrivilegeService privilegeService;
     private final PrivilegeCache privilegeCache;
 
+    /**
+     * 初始化操作：@PostConstruct 注解的方法主要用于执行一些初始化操作，例如打开资源、加载配置等。
+     * 执行时机
+     *  依赖注入完成后：在 Spring 容器完成依赖注入之后。
+     *  Bean 使用之前：在 Bean 被任何其他 Bean 使用之前。
+     */
     @PostConstruct
     public void loadPrivilegeCache(){
         try {
