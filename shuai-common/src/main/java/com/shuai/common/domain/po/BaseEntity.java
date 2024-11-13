@@ -21,20 +21,19 @@ public abstract class BaseEntity implements Serializable {
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
+
     /**
-     * 创建者，目前使用 SysUser 的 id 编号
-     *
+     * 创建者
      * 使用 String 类型的原因是，未来可能会存在非数值的情况，留好拓展性。
      */
-    @TableField(fill = FieldFill.INSERT, jdbcType = JdbcType.VARCHAR)
     private String creater;
+
     /**
-     * 更新者，目前使用 SysUser 的 id 编号
-     *
+     * 更新者
      * 使用 String 类型的原因是，未来可能会存在非数值的情况，留好拓展性。
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE, jdbcType = JdbcType.VARCHAR)
     private String updater;
+
     /**
      * 是否删除
      */

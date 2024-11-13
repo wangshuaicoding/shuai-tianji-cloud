@@ -27,6 +27,7 @@ public class PrivilegeCache {
 
     public PrivilegeCache(StringRedisTemplate stringRedisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
+        // 操作这个key的hashmap,我感觉类似于初始化 2024/11/11 14:30 By 少帅
         this.hashOps = stringRedisTemplate.boundHashOps(AUTH_PRIVILEGE_KEY);
     }
 

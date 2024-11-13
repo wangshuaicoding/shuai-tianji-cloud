@@ -1,11 +1,15 @@
 package com.shuai.auth.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.shuai.api.dto.auth.RoleDTO;
 import com.shuai.auth.mapper.RoleMapper;
 import com.shuai.auth.service.IRoleMenuService;
 import com.shuai.auth.service.IRolePrivilegeService;
 import com.shuai.auth.service.IRoleService;
 import com.shuai.auth.util.PrivilegeCache;
+import com.shuai.common.domain.query.PageQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +32,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     private final IRoleMenuService roleMenuService;
     private final IRolePrivilegeService rolePrivilegeService;
     private final PrivilegeCache privilegeCache;
+    private final RoleMapper roleMapper;
 
     @Override
     public boolean exists(Long roleId) {
@@ -51,5 +56,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         rolePrivilegeService.removeByRoleId(id);
         // 3.清理缓存
         privilegeCache.removeCacheByRoleId(id);
+    }
+
+    @Override
+    public List<Role> pageQueryList(PageQuery pageQuery) {
+        LambdaQueryWrapper<Role> queryWrapper = new LambdaQueryWrapper<>();
+        return roleMapper.selectPageQuery(new Page<>(pageQuery.getPageNo(), pageQuery.getPageSize()),queryWrapper);
     }
 }

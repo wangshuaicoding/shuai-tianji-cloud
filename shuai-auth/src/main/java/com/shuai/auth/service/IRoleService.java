@@ -1,7 +1,9 @@
 package com.shuai.auth.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.shuai.api.dto.auth.RoleDTO;
 import com.shuai.auth.domain.po.Role;
+import com.shuai.common.domain.query.PageQuery;
 
 import java.util.List;
 
@@ -19,4 +21,6 @@ public interface IRoleService extends IService<Role> {
     boolean exists(List<Long> roleIds);
 
     void deleteRole(Long id);
+
+    List<Role> pageQueryList(PageQuery pageQuery);
 }

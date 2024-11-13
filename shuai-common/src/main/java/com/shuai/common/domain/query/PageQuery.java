@@ -15,8 +15,8 @@ import javax.validation.constraints.Min;
 @ApiModel(description = "分页请求参数")
 @Accessors(chain = true)
 public class PageQuery {
-    public static final Integer DEFAULT_PAGE_SIZE = 20;
     public static final Integer DEFAULT_PAGE_NUM = 1;
+    public static final Integer DEFAULT_PAGE_SIZE = 6;
 
     @ApiModelProperty(value = "页码", example = "1")
     @Min(value = 1, message = "页码不能小于1")
@@ -31,10 +31,6 @@ public class PageQuery {
 
     @ApiModelProperty(value = "排序字段", example = "id")
     private String sortBy;
-
-    public int from(){
-        return (pageNo - 1) * pageSize;
-    }
 
     public <T> Page<T> toMpPage(OrderItem ... orderItems) {
         Page<T> page = new Page<>(pageNo, pageSize);

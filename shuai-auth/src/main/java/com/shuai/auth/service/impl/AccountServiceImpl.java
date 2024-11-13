@@ -59,8 +59,7 @@ public class AccountServiceImpl implements IAccountService {
         String refreshToken = jwtTool.createRefreshToken(detail);
 
         // 2.4.将refresh-token写入用户cookie，并设置HttpOnly为true
-        int maxAge = BooleanUtils.isTrue(detail.getRememberMe()) ?
-                (int) JwtConstants.JWT_REMEMBER_ME_TTL.getSeconds() : -1;
+        int maxAge = BooleanUtils.isTrue(detail.getRememberMe()) ? (int) JwtConstants.JWT_REMEMBER_ME_TTL.getSeconds() : -1;
         WebUtils.cookieBuilder()
                 .name(detail.getRoleId() == 2 ? JwtConstants.REFRESH_HEADER : JwtConstants.ADMIN_REFRESH_HEADER)
                 .value(refreshToken)

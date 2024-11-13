@@ -34,6 +34,7 @@ public class JwtTool {
 
     public JwtTool(StringRedisTemplate stringRedisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
+        // 随机生成密钥对，此处用户可自行读取`KeyPair`、公钥或私钥生成`JWTSigner`
         this.jwtSigner = JWTSignerUtil.createSigner("rs256", KeyUtil.generateKeyPair(AlgorithmUtil.getAlgorithm("rs256")));
     }
 
@@ -63,14 +64,13 @@ public class JwtTool {
         String jti = UUID.randomUUID().toString(true);
         // 2.生成jwt
         // 2.1.如果是记住我，则有效期7天，否则30分钟
-        Duration ttl = BooleanUtils.isTrue(userDetail.getRememberMe()) ?
-                JwtConstants.JWT_REMEMBER_ME_TTL : JWT_REFRESH_TTL;
+        Duration ttl = BooleanUtils.isTrue(userDetail.getRememberMe()) ? JwtConstants.JWT_REMEMBER_ME_TTL : JWT_REFRESH_TTL;
         // 2.2.生成token
         /**
-        * jti 声明：
+         * jti 声明：
          * jti（JWT ID）是一个唯一的标识符，用于标识每个 JWT 令牌。
          * 它可以帮助系统跟踪和验证 JWT 是否已经被使用过，从而提高安全性。
-        */
+         */
         String token = JWT.create()
                 .setJWTId(jti)
                 .setPayload(JwtConstants.PAYLOAD_USER_KEY, userDetail)

@@ -45,13 +45,14 @@ public class CommonExceptionAdvice {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Object handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public R<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         String msg = e.getBindingResult().getAllErrors()
                 .stream().map(ObjectError::getDefaultMessage)
                 .collect(Collectors.joining("|"));
         log.error("请求参数校验异常 -> {}", msg);
-        log.debug("", e);
-        return processResponse(400, 400, msg);
+        return R.error(HttpStatus.BAD_REQUEST.value(), msg);
+        // log.debug("", e);
+        // return processResponse(400, 400, msg);
     }
     @ExceptionHandler(BindException.class)
     public Object handleBindException(BindException e) {
@@ -61,10 +62,11 @@ public class CommonExceptionAdvice {
     }
 
     @ExceptionHandler(NestedServletException.class)
-    public Object handleNestedServletException(NestedServletException e) {
+    public R<Object> handleNestedServletException(NestedServletException e) {
         log.error("参数异常 -> NestedServletException，{}", e.getMessage());
-        log.debug("", e);
-        return processResponse(400, 400, "请求参数异常");
+        return R.error(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        // log.debug("", e);
+        // return processResponse(400, 400, "请求参数异常");
     }
 
     @ExceptionHandler(ConstraintViolationException.class)

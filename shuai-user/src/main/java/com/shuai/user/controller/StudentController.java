@@ -1,6 +1,7 @@
 package com.shuai.user.controller;
 
 
+import com.shuai.common.domain.R;
 import com.shuai.common.domain.dto.PageDTO;
 import com.shuai.user.domain.dto.StudentFormDTO;
 import com.shuai.user.domain.query.UserPageQuery;
@@ -10,6 +11,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * <p>
@@ -32,8 +35,9 @@ public class StudentController {
 
     @ApiOperation("学员注册")
     @PostMapping("/register")
-    public void registerStudent(@RequestBody StudentFormDTO studentFormDTO) {
+    public R<Void> registerStudent(@RequestBody @Valid StudentFormDTO studentFormDTO) {
         studentService.saveStudent(studentFormDTO);
+        return R.ok();
     }
 
     @ApiOperation("修改学员密码")

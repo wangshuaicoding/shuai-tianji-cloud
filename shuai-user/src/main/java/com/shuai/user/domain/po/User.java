@@ -1,5 +1,6 @@
 package com.shuai.user.domain.po;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.shuai.common.domain.po.BaseEntity;
@@ -28,7 +29,7 @@ public class User extends BaseEntity {
     /**
      * 主键
      */
-    @TableId(value = "id")
+    @TableId(value = "id",type = IdType.ASSIGN_ID)
     private Long id;
 
     /**

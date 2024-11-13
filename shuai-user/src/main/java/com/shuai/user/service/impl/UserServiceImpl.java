@@ -252,7 +252,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 .eq(StrUtil.isNotBlank(username), User::getUsername, username)
                 .eq(StrUtil.isNotBlank(cellPhone), User::getCellPhone, cellPhone)
                 .one();
-        AssertUtils.isNotNull(user, INVALID_UN_OR_PW);
+        // AssertUtils.isNotNull(user, INVALID_UN_OR_PW);
+        if (user == null) {
+            throw new BadRequestException(INVALID_UN_OR_PW);
+        }
         // 3.校验是否禁用
         if (user.getStatus() == UserStatus.FROZEN) {
             throw new ForbiddenException(USER_FROZEN);
