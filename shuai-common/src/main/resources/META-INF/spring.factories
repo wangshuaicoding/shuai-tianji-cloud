@@ -7,4 +7,4 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
  com.shuai.common.autoconfigure.redisson.RedissonConfig,\
  com.shuai.common.autoconfigure.swagger.SwaggerConfiguration, \
  com.shuai.common.autoconfigure.xxljob.XxlJobConfig, \
-com.shuai.common.autoconfigure.mvc.AuthAutoConfiguration
+ com.shuai.common.autoconfigure.mvc.AuthAutoConfiguration

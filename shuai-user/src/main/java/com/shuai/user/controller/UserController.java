@@ -2,6 +2,7 @@ package com.shuai.user.controller;
 
 import com.shuai.api.dto.user.LoginFormDTO;
 import com.shuai.api.dto.user.UserDTO;
+import com.shuai.common.domain.R;
 import com.shuai.common.domain.dto.LoginUserDTO;
 import com.shuai.common.exceptions.BadRequestException;
 import com.shuai.common.utils.BeanUtils;
@@ -94,9 +95,9 @@ public class UserController {
      */
     @ApiIgnore
     @PostMapping("/detail/{isStaff}")
-    public LoginUserDTO queryUserDetail(
+    public R<LoginUserDTO> queryUserDetail(
             @Valid @RequestBody LoginFormDTO loginDTO, @PathVariable("isStaff") boolean isStaff) {
-        return userService.queryUserDetail(loginDTO, isStaff);
+        return R.ok(userService.queryUserDetail(loginDTO, isStaff));
     }
 
     /**

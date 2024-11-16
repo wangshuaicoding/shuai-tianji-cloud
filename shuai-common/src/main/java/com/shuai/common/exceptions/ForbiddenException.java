@@ -2,7 +2,7 @@ package com.shuai.common.exceptions;
 
 import lombok.Getter;
 
-// 权限异常，对应403 2024/6/21 上午 11:29 By 少帅
+// 服务器理解请求客户端的请求，但是拒绝执行此请求。
 @Getter
 public class ForbiddenException extends CommonException {
     private final int status = 403;

@@ -1,10 +1,12 @@
 package com.shuai.user.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shuai.common.enums.UserType;
 import com.shuai.common.utils.StringUtils;
+import com.shuai.user.domain.po.User;
 import com.shuai.user.domain.po.UserDetail;
 import com.shuai.user.domain.query.UserPageQuery;
 import com.shuai.user.mapper.UserDetailMapper;
@@ -49,8 +51,16 @@ public class UserDetailServiceImpl extends ServiceImpl<UserDetailMapper, UserDet
                 .eq(StringUtils.isNotBlank(phone),"u.cell_phone", phone)
                 .like(StringUtils.isNotBlank(name), "ud.name", name);
         // 3.查询
-        p = getBaseMapper().queryByPage(p, wrapper);
+        p = baseMapper.queryByPage(p, wrapper);
         // 4.返回
         return p;
+    }
+
+    public static void main(String[] args) {
+        String phone = "1234577";
+        String phone1 = " ";
+
+        System.out.println(StringUtils.isNotEmpty(phone));
+        System.out.println(StringUtils.isNotEmpty(phone1));
     }
 }

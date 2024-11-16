@@ -25,3 +25,5 @@ spring:
             refresh: false
           - data-id: shared-mybatis-local.yaml # 共享mybatis配置
             refresh: false
+          - data-id: shared-feign-local.yaml # 共享feign配置
+            refresh: false

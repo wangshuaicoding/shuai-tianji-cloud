@@ -29,8 +29,8 @@ public class StudentController {
 
     @ApiOperation("分页查询学生信息")
     @GetMapping("/page")
-    public PageDTO<StudentPageVo> queryStudentPage(UserPageQuery pageQuery){
-        return studentService.queryStudentPage(pageQuery);
+    public R<PageDTO<StudentPageVo>> queryStudentPage(UserPageQuery pageQuery){
+        return R.ok(studentService.queryStudentPage(pageQuery));
     }
 
     @ApiOperation("学员注册")

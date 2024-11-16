@@ -2,7 +2,7 @@ package com.shuai.common.exceptions;
 
 import lombok.Getter;
 
-// 统一异常的父类 2024/6/21 上午 11:29 By 少帅
+// 统一异常的父类，方便捕获异常 2024/6/21 上午 11:29 By 少帅
 @Getter
 public class CommonException extends RuntimeException{
     private final int code;

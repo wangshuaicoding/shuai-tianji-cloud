@@ -5,6 +5,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.shuai.api.dto.auth.RoleDTO;
 import com.shuai.auth.domain.po.Role;
 import com.shuai.auth.service.IRoleService;
+import com.shuai.common.domain.R;
 import com.shuai.common.domain.query.PageQuery;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,16 +30,16 @@ public class RoleController {
 
     private final IRoleService roleService;
 
-    @ApiOperation("查询员工角色列表")
-    @GetMapping("/list")
-    public List<RoleDTO> listAllRoles(PageQuery pageQuery) {
+    @ApiOperation("分页查询员工角色列表")
+    @GetMapping("/page")
+    public R<List<RoleDTO>> listAllRoles(PageQuery pageQuery) {
         // 1.分页查询
         List<Role> list = roleService.pageQueryList(pageQuery);
         if (CollectionUtil.isEmpty(list)) {
-            return Collections.emptyList();
+            return R.ok(Collections.emptyList());
         }
         // 3.数据转换
-        return list.stream().map(Role::toDTO).collect(Collectors.toList());
+        return R.ok(list.stream().map(Role::toDTO).collect(Collectors.toList()));
     }
 
     @ApiOperation("查询员工角色列表")

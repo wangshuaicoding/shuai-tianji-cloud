@@ -4,6 +4,7 @@ package com.shuai.auth.controller;
 import com.shuai.api.dto.user.LoginFormDTO;
 import com.shuai.auth.service.IAccountService;
 import com.shuai.common.constants.JwtConstants;
+import com.shuai.common.domain.R;
 import com.shuai.common.exceptions.BadRequestException;
 import com.shuai.common.utils.WebUtils;
 import io.swagger.annotations.Api;
@@ -26,14 +27,14 @@ public class AccountController {
 
     @ApiOperation("登录并获取token")
     @PostMapping(value = "/login")
-    public String loginByPw(@RequestBody LoginFormDTO loginFormDTO) throws UnsupportedEncodingException {
-        return accountService.login(loginFormDTO, false);
+    public R<String> loginByPw(@RequestBody LoginFormDTO loginFormDTO) throws UnsupportedEncodingException {
+        return R.ok(accountService.login(loginFormDTO, false));
     }
 
     @ApiOperation("管理端登录并获取token")
     @PostMapping(value = "/admin/login")
-    public String adminLoginByPw(@RequestBody LoginFormDTO loginFormDTO) throws UnsupportedEncodingException {
-        return accountService.login(loginFormDTO, true);
+    public R<String> adminLoginByPw(@RequestBody LoginFormDTO loginFormDTO) throws UnsupportedEncodingException {
+        return R.ok(accountService.login(loginFormDTO, true));
     }
 
     @ApiOperation("退出登录")

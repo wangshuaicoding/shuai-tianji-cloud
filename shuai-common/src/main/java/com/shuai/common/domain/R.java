@@ -6,13 +6,18 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.slf4j.MDC;
 
+import java.io.Serializable;
+
 import static com.shuai.common.constants.ErrorInfo.Code.FAILED;
 import static com.shuai.common.constants.ErrorInfo.Code.SUCCESS;
 import static com.shuai.common.constants.ErrorInfo.Msg.OK;
 
 @Data
 @ApiModel(description = "通用响应结果")
-public class R<T> {
+public class R<T> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty(value = "业务状态码，200-成功，其它-失败")
     private int code;
     @ApiModelProperty(value = "响应消息", example = "OK")

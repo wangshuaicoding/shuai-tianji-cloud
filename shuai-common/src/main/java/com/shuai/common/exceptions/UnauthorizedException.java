@@ -2,7 +2,7 @@ package com.shuai.common.exceptions;
 
 import lombok.Getter;
 
-// 未登录异常，对应401 2024/6/21 下午 13:34 By 少帅
+// 请求要求用户的身份认证 2024/11/16 10:59 By 少帅
 @Getter
 public class UnauthorizedException extends CommonException {
     private final int status = 401;

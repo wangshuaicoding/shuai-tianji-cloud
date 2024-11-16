@@ -91,7 +91,10 @@ public class JwtTool {
      */
     public LoginUserDTO parseRefreshToken(String refreshToken) {
         // 1.校验token是否为空
-        AssertUtils.isNotNull(refreshToken, AuthErrorInfo.Msg.INVALID_TOKEN);
+        // AssertUtils.isNotNull(refreshToken, AuthErrorInfo.Msg.INVALID_TOKEN);
+        if (StringUtils.isEmpty(refreshToken)) {
+            throw new BadRequestException(AuthErrorInfo.Msg.INVALID_TOKEN);
+        }
         // 2.校验并解析jwt
         JWT jwt;
         try {

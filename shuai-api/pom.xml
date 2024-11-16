@@ -20,33 +20,41 @@
 
     <dependencies>
         <dependency>
+            <!--groupId：组织或公司名称-->
             <groupId>org.springframework.cloud</groupId>
+            <!--artifactId：具体的库或模块名称-->
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+
         <!--httpClient的依赖 -->
         <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-httpclient</artifactId>
         </dependency>
+
         <!--common-->
         <dependency>
             <groupId>com.shuai</groupId>
             <artifactId>shuai-common</artifactId>
             <version>${revision}</version>
         </dependency>
+
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
         </dependency>
+
         <!--实现高效的缓存实现-->
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
         </dependency>
+
         <!--sentinel-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
+
     </dependencies>
 </project>
