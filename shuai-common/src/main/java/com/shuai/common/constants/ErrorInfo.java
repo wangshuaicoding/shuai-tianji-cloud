@@ -2,7 +2,7 @@ package com.shuai.common.constants;
 
 public interface ErrorInfo {
 
-    interface Msg {
+    interface Message {
         String OK = "OK";
        String INVALID_VERIFY_CODE = "验证码错误";
 

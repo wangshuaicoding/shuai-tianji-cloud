@@ -45,7 +45,7 @@ public class AssertUtils {
     }
 
     private static void handleException(String ... message){
-        String msg = ErrorInfo.Msg.REQUEST_PARAM_ILLEGAL;
+        String msg = ErrorInfo.Message.REQUEST_PARAM_ILLEGAL;
         if(message != null && message.length > 0){
             msg = message[0];
         }

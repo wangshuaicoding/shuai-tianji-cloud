@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 import static com.shuai.common.constants.ErrorInfo.Code.FAILED;
 import static com.shuai.common.constants.ErrorInfo.Code.SUCCESS;
-import static com.shuai.common.constants.ErrorInfo.Msg.OK;
+import static com.shuai.common.constants.ErrorInfo.Message.OK;
 
 @Data
 @ApiModel(description = "通用响应结果")
@@ -21,44 +21,37 @@ public class R<T> implements Serializable {
     @ApiModelProperty(value = "业务状态码，200-成功，其它-失败")
     private int code;
     @ApiModelProperty(value = "响应消息", example = "OK")
-    private String msg;
+    private String message;
     @ApiModelProperty(value = "响应数据")
     private T data;
-    @ApiModelProperty(value = "请求id", example = "1af123c11412e")
-    private String requestId;
 
     public static R<Void> ok() {
-        return new R<Void>(SUCCESS, OK, null);
+        return new R<>(SUCCESS, OK, null);
     }
 
     public static <T> R<T> ok(T data) {
         return new R<>(SUCCESS, OK, data);
     }
 
-    public static <T> R<T> error(String msg) {
-        return new R<>(FAILED, msg, null);
+    public static <T> R<T> error(String message) {
+        return new R<>(FAILED, message, null);
     }
 
-    public static <T> R<T> error(int code, String msg) {
-        return new R<>(code, msg, null);
+    public static <T> R<T> error(int code, String message) {
+        return new R<>(code, message, null);
     }
 
     public R() {
     }
 
-    public R(int code, String msg, T data) {
+    public R(int code, String message, T data) {
         this.code = code;
-        this.msg = msg;
+        this.message = message;
         this.data = data;
-        this.requestId = MDC.get(Constant.REQUEST_ID_HEADER);
     }
 
     public boolean success(){
         return code == SUCCESS;
     }
 
-    public R<T> requestId(String requestId) {
-        this.requestId = requestId;
-        return this;
-    }
 }

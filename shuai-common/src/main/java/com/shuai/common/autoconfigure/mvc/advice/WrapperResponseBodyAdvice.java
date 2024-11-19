@@ -29,11 +29,11 @@ public class WrapperResponseBodyAdvice implements ResponseBodyAdvice<Object> {
             return body;
         }
         if (body == null) {
-            return R.ok().requestId(MDC.get(Constant.REQUEST_ID_HEADER));
+            return R.ok();
         }
         if(body instanceof R){
             return body;
         }
-        return R.ok(body).requestId(MDC.get(Constant.REQUEST_ID_HEADER));
+        return R.ok(body);
     }
 }

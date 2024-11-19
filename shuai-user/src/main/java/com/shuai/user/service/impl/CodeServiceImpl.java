@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.shuai.api.constants.SmsConstants.VERIFY_CODE_PARAM_NAME;
-import static com.shuai.common.constants.ErrorInfo.Msg.INVALID_VERIFY_CODE;
+import static com.shuai.common.constants.ErrorInfo.Message.INVALID_VERIFY_CODE;
 import static com.shuai.user.constants.UserConstants.USER_VERIFY_CODE_KEY;
 import static com.shuai.user.constants.UserConstants.USER_VERIFY_CODE_TTL;
 

@@ -99,7 +99,7 @@ public class AuthUtil {
         // 2.判断是否登录成功
         if (!r.success()) {
             // 未登录，直接报错
-            throw new UnauthorizedException(r.getCode(), r.getMsg());
+            throw new UnauthorizedException(r.getCode(), r.getMessage());
         }
         // 3.获取当前路径所需权限
         PrivilegeRoleDTO pathPrivilege = findPathPrivilege(matchPath);

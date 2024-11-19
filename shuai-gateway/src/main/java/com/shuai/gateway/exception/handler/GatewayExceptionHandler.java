@@ -23,7 +23,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static com.shuai.common.constants.ErrorInfo.Code.FAILED;
-import static com.shuai.common.constants.ErrorInfo.Msg.SERVER_INTER_ERROR;
+import static com.shuai.common.constants.ErrorInfo.Message.SERVER_INTER_ERROR;
 
 @Slf4j
 @Component
@@ -63,10 +63,6 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler, Ordere
         response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         // 6.封装响应结果并写出
         R<Object> r = R.error(code, message);
-        List<String> requestIds = response.getHeaders().get(Constant.REQUEST_ID_HEADER);
-        if (requestIds != null) {
-            r.requestId(requestIds.get(0));
-        }
         byte[] resp = JsonUtils.toJsonStr(r).getBytes(StandardCharsets.UTF_8);
         return response.writeWith(
                 Mono.fromSupplier(

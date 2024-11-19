@@ -6,12 +6,14 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.core.env.Environment;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @MapperScan("com.shuai.user.mapper")
+@EnableFeignClients(basePackages = "com.shuai.api.client")
 @SpringBootApplication
 @Slf4j
 public class UserApplication {
@@ -35,6 +37,5 @@ public class UserApplication {
                 InetAddress.getLocalHost().getHostAddress(),
                 env.getProperty("server.port"),
                 env.getActiveProfiles());
-
     }
 }

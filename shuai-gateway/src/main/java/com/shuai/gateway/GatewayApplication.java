@@ -13,6 +13,7 @@ import java.net.UnknownHostException;
 
 @SpringBootApplication
 @Slf4j
+// 启用基于注解的定时任务支持
 @EnableScheduling
 public class GatewayApplication {
     public static void main(String[] args) throws UnknownHostException {

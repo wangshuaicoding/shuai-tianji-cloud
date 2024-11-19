@@ -37,7 +37,7 @@ public class AccountServiceImpl implements IAccountService {
         // 1.查询并校验用户信息
         R<LoginUserDTO> userDetail = userClient.queryUserDetail(loginDTO, isStaff);
         if (userDetail.getCode() != ErrorInfo.Code.SUCCESS) {
-            throw new OpenFeignException(userDetail.getMsg());
+            throw new OpenFeignException(userDetail.getMessage());
         }
         LoginUserDTO detail = userDetail.getData();
         // 2.基于JWT生成登录token
