@@ -11,6 +11,7 @@ import com.shuai.common.domain.R;
 import com.shuai.common.domain.dto.LoginUserDTO;
 import com.shuai.common.exceptions.OpenFeignException;
 import com.shuai.common.utils.BooleanUtils;
+import com.shuai.common.utils.WebUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,6 @@ import java.io.UnsupportedEncodingException;
  * 账号表，平台内所有用户的账号、密码信息 服务实现类
  * </p>
  *
- * @author 虎哥
- * @since 2022-06-16
  */
 @Slf4j
 @Service
@@ -59,13 +58,14 @@ public class AccountServiceImpl implements IAccountService {
         String refreshToken = jwtTool.createRefreshToken(detail);
 
         // 2.4.将refresh-token写入用户cookie，并设置HttpOnly为true
+        // maxAge = -1:这种 Cookie 不会被保存在用户的硬盘上，而是存储在浏览器的内存中。当用户关闭浏览器时，此 Cookie 会被自动删除。
         int maxAge = BooleanUtils.isTrue(detail.getRememberMe()) ? (int) JwtConstants.JWT_REMEMBER_ME_TTL.getSeconds() : -1;
-        // WebUtils.cookieBuilder()
-        //         .name(detail.getRoleId() == 2 ? JwtConstants.REFRESH_HEADER : JwtConstants.ADMIN_REFRESH_HEADER)
-        //         .value(refreshToken)
-        //         .maxAge(maxAge)
-        //         .httpOnly(true)  // 设置为true,则浏览器不会允许JavaScript 访问此 Cookie，增加安全性。
-        //         .build();
+        WebUtils.cookieBuilder()
+                .name(detail.getRoleId() == 2 ? JwtConstants.REFRESH_HEADER : JwtConstants.ADMIN_REFRESH_HEADER)
+                .value(refreshToken)
+                .maxAge(maxAge)
+                .httpOnly(true)  // 设置为true,则浏览器不会允许JavaScript 访问此 Cookie，增加安全性。
+                .build();
         return token;
     }
 
@@ -74,13 +74,12 @@ public class AccountServiceImpl implements IAccountService {
         // 删除jti
         jwtTool.cleanJtiCache();
         // 删除cookie
-        // WebUtils.cookieBuilder()
-        //         .name(JwtConstants.REFRESH_HEADER)
-        //         .value("")
-        //         .maxAge(0)
-        //         .httpOnly(true)
-        //         .build();
-
+        WebUtils.cookieBuilder()
+                .name(JwtConstants.REFRESH_HEADER)
+                .value("")
+                .maxAge(0)  // 设置过期时间为0，则立即删除cookie
+                .httpOnly(true)
+                .build();
     }
 
     @Override

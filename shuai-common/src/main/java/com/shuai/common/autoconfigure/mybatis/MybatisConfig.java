@@ -16,12 +16,14 @@ public class MybatisConfig {
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
-        mybatisPlusInterceptor.addInnerInterceptor(new PaginationInnerInterceptor()); // 分页插件
+        // 装配分页插件
+        mybatisPlusInterceptor.addInnerInterceptor(new PaginationInnerInterceptor());
         return mybatisPlusInterceptor;
     }
 
     @Bean
     public MetaObjectHandler defaultMetaObjectHandler(){
-        return new BaseMetaObjectHandler(); // 自动填充参数类
+        // 自动填充参数类
+        return new BaseMetaObjectHandler();
     }
 }

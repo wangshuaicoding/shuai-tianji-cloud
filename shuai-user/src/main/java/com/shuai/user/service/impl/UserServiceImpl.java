@@ -252,7 +252,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 .eq(StrUtil.isNotBlank(username), User::getUsername, username)
                 .eq(StrUtil.isNotBlank(cellPhone), User::getCellPhone, cellPhone)
                 .one();
-        if (user != null) {
+        if (user == null) {
             throw new BadRequestException(INVALID_UN_OR_PW);
         }
         // 3.校验是否禁用

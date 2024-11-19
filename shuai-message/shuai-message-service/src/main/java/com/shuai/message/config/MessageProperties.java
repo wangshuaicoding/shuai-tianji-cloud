@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
+// @ConfigurationProperties实现配置类进行绑定，实现属性的自动注入
 @ConfigurationProperties(prefix = "shuai.message")
 public class MessageProperties {
     /**

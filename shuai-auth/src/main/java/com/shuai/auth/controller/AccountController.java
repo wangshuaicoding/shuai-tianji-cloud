@@ -62,4 +62,10 @@ public class AccountController {
         }
         return accountService.refreshToken(WebUtils.cookieBuilder().decode(token));
     }
+
+    @ApiOperation("刷新token测试")
+    @GetMapping(value = "/refreshTest")
+    public R<String> getUserInfo(@RequestParam("adminToken") String adminToken) throws UnsupportedEncodingException {
+        return R.ok(accountService.refreshToken(adminToken));
+    }
 }

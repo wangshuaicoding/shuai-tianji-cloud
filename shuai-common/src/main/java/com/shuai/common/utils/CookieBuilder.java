@@ -15,6 +15,11 @@ import java.nio.charset.StandardCharsets;
 
 @Slf4j
 @Data
+/**
+ * @Accessors:链式调用的注解
+ * chain = true: 开启链式调用
+ * fluent = true：目的是启用流畅接口风格，例如 name() 代替 getName()
+ */
 @Accessors(chain = true, fluent = true)
 public class CookieBuilder {
     private Charset charset = StandardCharsets.UTF_8;
@@ -46,7 +51,8 @@ public class CookieBuilder {
         }else if (request != null) {
             String serverName = request.getServerName();
             serverName = StringUtils.subAfter(serverName, ".", false);
-            cookie.setDomain("." + serverName);
+            // 新版的tomcat获取generateHeader的方法变了 https://blog.csdn.net/w57685321/article/details/84943176
+            cookie.setDomain(serverName);
         }
         cookie.setHttpOnly(httpOnly);
         cookie.setMaxAge(maxAge);
