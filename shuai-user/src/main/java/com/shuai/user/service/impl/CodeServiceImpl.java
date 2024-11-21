@@ -40,9 +40,7 @@ public class CodeServiceImpl implements ICodeService {
             // 2.生成随机验证码
             code = RandomUtils.randomNumbers(4);
             // 3.保存到redis
-            stringRedisTemplate.opsForValue()
-                    .set(USER_VERIFY_CODE_KEY + phone, code, USER_VERIFY_CODE_TTL);
-
+            stringRedisTemplate.opsForValue().set(USER_VERIFY_CODE_KEY + phone, code, USER_VERIFY_CODE_TTL);
         }
         // 4.发送短信
         log.debug("发送短信验证码：{}", code);

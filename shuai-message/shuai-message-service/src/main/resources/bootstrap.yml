@@ -27,6 +27,9 @@ spring:
 logging:
   file:
     name: ${user.home}/logs/${spring.application.name}.log # 日志文件名，全路径
+  level:
+    # 配置自己写的 MyBatis Mapper 打印日志
+    com.shuai.message: debug
 
 knife4j:
   enable: true # 是否开启 Swagger 文档的 Knife4j UI 界面

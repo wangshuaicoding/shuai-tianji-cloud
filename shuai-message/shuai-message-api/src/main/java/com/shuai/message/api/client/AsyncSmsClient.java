@@ -10,12 +10,6 @@ import java.util.List;
 
 public class AsyncSmsClient {
 
-
-    public static void main(String[] args) {
-        List<String> strings = new ArrayList<>();
-        strings.add("aa");
-        strings.add("aa");
-    }
     private final RabbitMqHelper mqHelper;
 
     public AsyncSmsClient(RabbitMqHelper mqHelper) {

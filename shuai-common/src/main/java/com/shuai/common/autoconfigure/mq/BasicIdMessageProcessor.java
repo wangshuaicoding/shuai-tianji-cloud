@@ -8,7 +8,9 @@ import org.springframework.amqp.core.MessagePostProcessor;
 
 import static com.shuai.common.constants.Constant.REQUEST_ID_HEADER;
 
-
+/**
+ * 用于设置消息的唯一标识符
+ */
 public class BasicIdMessageProcessor implements MessagePostProcessor {
     @Override
     public Message postProcessMessage(Message message) throws AmqpException {

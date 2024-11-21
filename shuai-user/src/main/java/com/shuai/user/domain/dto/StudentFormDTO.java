@@ -17,7 +17,7 @@ public class StudentFormDTO {
     private String cellPhone;
 
     @ApiModelProperty(value = "密码", example = "123456")
-    @NotEmpty(message = "密码不能为空")
+    // @NotEmpty(message = "密码不能为空")
     private String password;
 
     @ApiModelProperty(value = "验证码", example = "645632")

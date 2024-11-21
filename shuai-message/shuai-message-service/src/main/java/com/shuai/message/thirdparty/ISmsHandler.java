@@ -14,5 +14,4 @@ public interface ISmsHandler {
      */
     void send(SmsInfoDTO platformSmsInfoDTO, MessageTemplate template);
 
-
 }

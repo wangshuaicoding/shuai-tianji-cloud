@@ -30,6 +30,7 @@ import static com.shuai.common.constants.MqConstants.Queue.ERROR_QUEUE_TEMPLATE;
 
 
 @Configuration
+// 用于控制配置类或 Bean 的加载条件,后面两个都存在的时候才会加载
 @ConditionalOnClass(value = {MessageConverter.class, AmqpTemplate.class})
 public class MqConfig implements EnvironmentAware{
 
@@ -37,6 +38,8 @@ public class MqConfig implements EnvironmentAware{
     private String defaultErrorQueue;
 
     @Bean(name = "rabbitListenerContainerFactory")
+    // 当用户没有显式配置 spring.rabbitmq.listener.type 属性时，默认使用 simple 类型的监听器容器工厂。
+    // 如果 spring.rabbitmq.listener.type 属性不存在，由于 matchIfMissing = true，方法也会被加载
     @ConditionalOnProperty(prefix = "spring.rabbitmq.listener", name = "type", havingValue = "simple",
             matchIfMissing = true)
     SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory(
@@ -79,9 +82,9 @@ public class MqConfig implements EnvironmentAware{
 
     /**
      * rabbitmq发送工具
-     *
      */
     @Bean
+    // 作用：避免重复定义 Bean。如果用户已经在其他地方定义了 RabbitMqHelper，则不会在这里再次创建，从而避免冲突。
     @ConditionalOnMissingBean
     @ConditionalOnClass(RabbitTemplate.class)
     public RabbitMqHelper rabbitMqHelper(RabbitTemplate rabbitTemplate){

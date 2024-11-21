@@ -1,4 +1,4 @@
-package com.shuai.message.handler;
+package com.shuai.message.mq;
 
 import com.shuai.common.constants.MqConstants;
 import com.shuai.message.domain.dto.SmsInfoDTO;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class SmsMessageHandler {
+public class SmsMessageListener {
 
     private final ISmsService smsService;
 
