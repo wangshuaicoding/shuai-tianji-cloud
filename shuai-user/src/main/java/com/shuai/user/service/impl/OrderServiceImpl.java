@@ -86,6 +86,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         orderDetail.setRealPayAmount(courseSimpleInfo.getPrice() - orderDetail.getDiscountAmount());
         orderDetail.setStatus(OrderStatus.ENROLLED.getValue());
         //todo 为啥这里没有设置订单详情的id，它不报错，还会自动插入值
+        // 你好吗 2024/11/29 22:11 By 少帅
 
         // 保存订单详情信息
         orderDetailService.save(orderDetail);
