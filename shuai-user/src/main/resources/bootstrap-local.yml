@@ -8,7 +8,7 @@ spring:
       discovery:
         namespace: 4068a275-597e-4c58-b6b5-ac70e3f6d2ac
         group: DEFAULT_GROUP
-        ip: 192.168.1.39
+        ip: 127.0.0.1
 
 --- #################### 配置中心相关配置 ####################
 spring:

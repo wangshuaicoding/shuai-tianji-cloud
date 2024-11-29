@@ -7,21 +7,6 @@ spring:
     active: local
   application:
     name: message-service
-  cloud:
-    nacos:
-      config:
-        username: nacos
-        password: nacos
-        file-extension: yaml
-        shared-configs: # 共享配置
-          - data-id: shared-spring.yaml # 共享spring配置
-            refresh: false
-          - data-id: shared-redis.yaml # 共享redis配置
-            refresh: false
-          - data-id: shared-mybatis.yaml # 共享mybatis配置
-            refresh: false
-          - data-id: shared-feign.yaml # 共享feign配置
-            refresh: false
 
 # 日志文件配置。注意，如果 logging.file.name 不放在 bootstrap.yaml 配置文件，而是放在 application.yaml 中，会导致出现 LOG_FILE_IS_UNDEFINED 文件
 logging:

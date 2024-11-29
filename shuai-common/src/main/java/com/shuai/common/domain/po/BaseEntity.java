@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-public abstract class BaseEntity implements Serializable {
+public class BaseEntity implements Serializable {
     /**
      * 创建时间
      */

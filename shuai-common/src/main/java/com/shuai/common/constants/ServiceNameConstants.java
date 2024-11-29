@@ -23,4 +23,9 @@ public class ServiceNameConstants {
      * 消息服务
      */
     public static final String MESSAGE_SERVICE = "message-service";
+
+    /**
+     * 课程服务
+     */
+    public static final String LEARNING_SERVICE = "learning-service";
 }
