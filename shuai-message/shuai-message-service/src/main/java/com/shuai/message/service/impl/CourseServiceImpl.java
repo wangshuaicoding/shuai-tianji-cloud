@@ -2,6 +2,7 @@ package com.shuai.message.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
+import com.shuai.api.dto.course.CourseFullInfoDTO;
 import com.shuai.api.dto.course.CourseSimpleInfoDTO;
 import com.shuai.message.domain.po.Course;
 import com.shuai.message.mapper.CourseMapper;
@@ -29,5 +30,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             return null;
         }
         return BeanUtil.copyToList(courseList, CourseSimpleInfoDTO.class);
+    }
+
+    @Override
+    public CourseFullInfoDTO selectFullInfoById(Long id) {
+        Course course = baseMapper.selectById(id);
+        return BeanUtil.copyProperties(course, CourseFullInfoDTO.class);
     }
 }

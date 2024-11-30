@@ -1,14 +1,22 @@
 package com.shuai.auth.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.shuai.api.client.course.CatalogueClient;
 import com.shuai.api.client.course.CourseClient;
+import com.shuai.api.dto.course.CataSimpleInfoDTO;
+import com.shuai.api.dto.course.CourseFullInfoDTO;
 import com.shuai.api.dto.course.CourseSimpleInfoDTO;
+import com.shuai.auth.constants.CourseConstants;
 import com.shuai.auth.domain.po.LearningLesson;
+import com.shuai.auth.domain.vo.LearningLessonVO;
+import com.shuai.auth.enums.LessonStatus;
 import com.shuai.auth.mapper.LearningLessonMapper;
 import com.shuai.auth.service.ILearningLessonService;
 import com.shuai.common.domain.dto.PageDTO;
 import com.shuai.common.domain.query.PageQuery;
+import com.shuai.common.exceptions.BadRequestException;
 import com.shuai.common.utils.CollUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +41,7 @@ import java.util.List;
 public class LearningLessonServiceImpl extends ServiceImpl<LearningLessonMapper, LearningLesson> implements ILearningLessonService {
 
     private final CourseClient courseClient;
+    private final CatalogueClient catalogueClient;
 
     @Override
     @Transactional
@@ -73,5 +82,41 @@ public class LearningLessonServiceImpl extends ServiceImpl<LearningLessonMapper,
         }
 
         return PageDTO.of(page);
+    }
+
+    @Override
+    public LearningLessonVO checkMyRecentCourse() {
+        Long userId = 2L;
+        LearningLesson learningLesson = lambdaQuery().eq(LearningLesson::getUserId, userId)
+                .eq(LearningLesson::getStatus, LessonStatus.LEARNING)
+                .orderByDesc(LearningLesson::getLatestLearnTime)
+                .last("limit 1")
+                .one();
+        if (learningLesson == null) {
+            return null;
+        }
+
+        LearningLessonVO vo = BeanUtil.copyProperties(learningLesson, LearningLessonVO.class);
+        // 获取课程信息
+        CourseFullInfoDTO courseFullInfo = courseClient.selectFullInfoById(learningLesson.getCourseId());
+        if (courseFullInfo == null) {
+            throw new BadRequestException(CourseConstants.COURSE_NOT_EXIST);
+        }
+        vo.setCourseName(courseFullInfo.getName());
+        vo.setCoverUrl(courseFullInfo.getCoverUrl());
+        vo.setSectionNum(courseFullInfo.getSectionNum());
+
+        // 统计课程表中的课程数量
+        Integer courseCount = lambdaQuery().eq(LearningLesson::getUserId, userId).count();
+        vo.setCourseAmount(courseCount);
+
+        // 查询小节信息
+        List<CataSimpleInfoDTO> cataSimpleInfoList = catalogueClient.batchQuery(CollUtils.singletonList(learningLesson.getLatestSectionId()));
+        if (!CollUtils.isEmpty(cataSimpleInfoList)) {
+            CataSimpleInfoDTO cataSimpleInfo = cataSimpleInfoList.get(0);
+            vo.setLatestSectionName(cataSimpleInfo.getName());
+            vo.setLatestSectionIndex(cataSimpleInfo.getCIndex());
+        }
+        return vo;
     }
 }

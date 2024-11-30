@@ -1,6 +1,7 @@
 package com.shuai.auth.controller.learning;
 
 
+import com.shuai.auth.domain.vo.LearningLessonVO;
 import com.shuai.auth.service.ILearningLessonService;
 import com.shuai.common.domain.R;
 import com.shuai.common.domain.dto.PageDTO;
@@ -34,9 +35,11 @@ public class LearningLessonController {
         return R.ok(learningLessonService.queryLessonPage(pageQuery));
     }
 
-    // @ApiOperation("查看我最近正在学习的客户")
-    // @GetMapping("/now")
-    // public
+    @ApiOperation("查看我最近正在学习的课程")
+    @GetMapping("/now")
+    public R<LearningLessonVO> checkMyRecentCourse() {
+        return R.ok(learningLessonService.checkMyRecentCourse());
+    }
 
 
 }

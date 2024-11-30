@@ -2,6 +2,7 @@ package com.shuai.api.client.course.fallback;
 
 import com.shuai.api.client.course.CourseClient;
 import com.shuai.api.client.user.UserClient;
+import com.shuai.api.dto.course.CourseFullInfoDTO;
 import com.shuai.api.dto.course.CourseSimpleInfoDTO;
 import com.shuai.api.dto.user.LoginFormDTO;
 import com.shuai.api.dto.user.UserDTO;
@@ -25,6 +26,11 @@ public class CourseClientFallback implements FallbackFactory<CourseClient> {
             @Override
             public List<CourseSimpleInfoDTO> selectListByIds(List<Long> ids) {
                 log.error("根据课程ids批量查询课程服务出现异常:{}", throwable.getMessage());
+                return null;
+            }
+
+            @Override
+            public CourseFullInfoDTO selectFullInfoById(Long id) {
                 return null;
             }
         };
