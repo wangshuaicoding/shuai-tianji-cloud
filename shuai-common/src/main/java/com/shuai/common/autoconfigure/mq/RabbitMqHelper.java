@@ -44,7 +44,7 @@ public class RabbitMqHelper {
      * 根据exchange和routingKey发送消息
      */
     public <T> void send(String exchange, String routingKey, T t) {
-        log.info("准备发送消息，exchange：{}， RoutingKey：{}， message：{}", exchange, routingKey,t);
+        log.debug("准备发送消息，exchange：{}， RoutingKey：{}， message：{}", exchange, routingKey,t);
         // 1.设置消息标示，用于消息确认，消息发送失败直接抛出异常，交给调用者处理
         String id = UUID.randomUUID().toString(true);
         // 用于消息确认，包含消息的唯一标识符。如果消息发送失败，可以通过这个标识符进行追踪和处理。

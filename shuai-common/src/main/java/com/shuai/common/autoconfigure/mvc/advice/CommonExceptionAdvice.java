@@ -35,6 +35,7 @@ public class CommonExceptionAdvice {
     @ExceptionHandler(CommonException.class)
     public R<Object> handleCommonException(CommonException e) {
         log.error("自定义异常 -> {} , 状态码：{}, 异常原因：{}  ",e.getClass().getName(), e.getStatus(), e.getMessage());
+        log.debug("", e);
         return R.error(e.getCode(), e.getMessage());
     }
 
