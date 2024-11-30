@@ -48,7 +48,7 @@ public class SignUtils {
      */
     public static String generateToken(String urlPath, String method, String queryParam,
                                        Object body, long expireTime, String accessKey, String secretKey) {
-        log.info("generateToken: urlPath={}, method={}, queryParam={}, body={}, expireTime={}", urlPath, method, queryParam, body, expireTime);
+        log.debug("generateToken: urlPath={}, method={}, queryParam={}, body={}, expireTime={}", urlPath, method, queryParam, body, expireTime);
         if (StringUtils.isEmpty(accessKey) || StringUtils.isEmpty(secretKey)) {
             log.error("invalid AK or SK");
             throw new CommonException("Invalid AK or SK");
@@ -89,7 +89,7 @@ public class SignUtils {
                 }
             }
             sbSign.append("|");
-            log.info("signature contents: {}", sbSign.toString());
+            log.debug("signature contents: {}", sbSign.toString());
 
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             md5.reset();
