@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 @Data
 public class CourseSimpleInfoDTO {
 
+    @ApiModelProperty(value = "课程id")
+    private Long id;
+
     @ApiModelProperty(value = "课程名称")
     private String name;
 

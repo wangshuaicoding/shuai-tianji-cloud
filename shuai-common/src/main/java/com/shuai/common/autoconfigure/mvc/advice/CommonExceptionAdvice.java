@@ -65,8 +65,6 @@ public class CommonExceptionAdvice {
     public R<Object> handleNestedServletException(NestedServletException e) {
         log.error("参数异常 -> NestedServletException，{}", e.getMessage());
         return R.error(HttpStatus.BAD_REQUEST.value(), e.getMessage());
-        // log.debug("", e);
-        // return processResponse(400, 400, "请求参数异常");
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
@@ -79,9 +77,9 @@ public class CommonExceptionAdvice {
     }
 
     @ExceptionHandler(Exception.class)
-    public Object handleRuntimeException(Exception e) {
+    public R<Object> handleRuntimeException(Exception e) {
         log.error("其他异常 uri : {} -> ", WebUtils.getRequest().getRequestURI(), e);
-        return processResponse(500, 500, "服务器内部异常");
+        return R.error(500, "服务器内部异常");
     }
 
     private Object processResponse(int status, int code, String msg){

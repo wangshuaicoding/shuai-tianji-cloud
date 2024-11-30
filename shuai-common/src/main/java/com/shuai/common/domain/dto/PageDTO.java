@@ -28,9 +28,6 @@ public class PageDTO<T> {
     @ApiModelProperty("当前页数据")
     protected List<T> list;
 
-    public static <T> PageDTO<T> empty(Long total, Long pages) {
-        return new PageDTO<>(total, pages, CollUtils.emptyList());
-    }
     public static <T> PageDTO<T> empty(Page<?> page) {
         return new PageDTO<>(page.getTotal(), page.getPages(), CollUtils.emptyList());
     }
@@ -66,8 +63,8 @@ public class PageDTO<T> {
         return new PageDTO<>(page.getTotal(), page.getPages(), BeanUtils.copyList(page.getRecords(), clazz, convert));
     }
 
-    @ApiModelProperty(hidden = true)
-    @JsonIgnore
+    @ApiModelProperty(hidden = true)  // swagger文档显示忽略
+    @JsonIgnore   // 序列化与反序列化忽略
     public boolean isEmpty(){
         return list == null || list.size() == 0;
     }

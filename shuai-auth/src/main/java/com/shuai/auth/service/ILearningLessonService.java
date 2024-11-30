@@ -2,6 +2,8 @@ package com.shuai.auth.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.shuai.auth.domain.po.LearningLesson;
+import com.shuai.common.domain.dto.PageDTO;
+import com.shuai.common.domain.query.PageQuery;
 
 import java.util.List;
 
@@ -16,4 +18,6 @@ import java.util.List;
 public interface ILearningLessonService extends IService<LearningLesson> {
 
     void addUserLessons(Long userId, List<Long> courseIds);
+
+    PageDTO queryLessonPage(PageQuery pageQuery);
 }

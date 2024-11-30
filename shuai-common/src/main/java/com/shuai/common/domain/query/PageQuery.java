@@ -63,6 +63,7 @@ public class PageQuery {
         page.addOrder(orderItem);
         return page;
     }
+
     public <T> Page<T> toMpPageDefaultSortByCreateTimeDesc() {
         return toMpPage(Constant.DATA_FIELD_NAME_CREATE_TIME, false);
     }
