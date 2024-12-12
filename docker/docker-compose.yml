@@ -58,6 +58,53 @@ services:
       - shuai-mysql
     networks:
       - shuai-network
+  shuai-rabbitmq:
+    container_name: shuai-rabbitmq
+    image: rabbitmq:management-alpine
+    restart: always
+    build:
+      context: ./rabbitmq
+    ports:
+      - "5671:5671"
+      - "5672:5672"
+      - "4369:4369"
+      - "25672:25672"
+      - "15671:15671"
+      - "15672:15672"
+    networks:
+      - shuai-network
+  shuai-gogs:
+    container_name: shuai-gogs
+    image: gogs/gogs
+    restart: always
+    build:
+      context: ./gogs
+    volumes:
+      - ./gogs:/data
+    ports:
+      - "10022:22"
+      - "13000:3000"
+    depends_on:
+      - shuai-mysql
+    networks:
+      - shuai-network
+  shuai-jenkins:
+    container_name: shuai-jenkins
+    image: jenkins/jenkins:lts-jdk8
+    user: root
+    restart: always
+    build:
+      context: ./jenkins
+    environment:
+      - JAVA_OPTS=-Dhudson.model.DownloadService.noSignatureCheck=true
+    volumes:
+      - ./jenkins/home/jenkins_home:/var/jenkins_home
+      - ./jenkins/etc/localtime:/etc/localtime
+    ports:
+      - "9095:8080"
+      - "50000:50000"
+    networks:
+      - shuai-network
   shuai-nginx:
     container_name: shuai-nginx
     image: nginx

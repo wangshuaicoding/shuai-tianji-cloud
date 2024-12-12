@@ -26,7 +26,7 @@ port(){
 
 # 启动基础环境（必须）
 base(){
-	docker-compose up -d shuai-mysql shuai-redis shuai-nacos
+	docker-compose up -d shuai-mysql shuai-redis shuai-nacos shuai-rabbitmq shuai-gogs shuai-jenkins
 }
 
 # 启动程序模块（必须）
@@ -46,22 +46,22 @@ rm(){
 
 # 根据输入参数，选择执行对应方法，不输入则执行使用说明
 case "$1" in
-"port")
-	port
-;;
-"base")
-	base
-;;
-"modules")
-	modules
-;;
-"stop")
-	stop
-;;
-"rm")
-	rm
-;;
-*)
-	usage
-;;
+      "port")
+        port
+      ;;
+      "base")
+        base
+      ;;
+      "modules")
+        modules
+      ;;
+      "stop")
+        stop
+      ;;
+      "rm")
+        rm
+      ;;
+      *)
+        usage
+      ;;
 esac
