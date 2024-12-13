@@ -18,6 +18,7 @@ import com.shuai.common.domain.dto.PageDTO;
 import com.shuai.common.domain.query.PageQuery;
 import com.shuai.common.exceptions.BadRequestException;
 import com.shuai.common.utils.CollUtils;
+import com.shuai.common.utils.UserContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -118,5 +119,44 @@ public class LearningLessonServiceImpl extends ServiceImpl<LearningLessonMapper,
             vo.setLatestSectionIndex(cataSimpleInfo.getCIndex());
         }
         return vo;
+    }
+
+    @Override
+    public Integer queryLearningStatus(Long courseId) {
+        Long userId = UserContext.getUser();
+
+        LearningLesson learningLesson = lambdaQuery().eq(LearningLesson::getUserId, userId)
+                .eq(LearningLesson::getCourseId, courseId)
+                .one();
+        if (learningLesson == null) {
+            throw new BadRequestException(CourseConstants.USER_NOT_COURSE);
+        }
+        return learningLesson.getStatus().getValue();
+    }
+
+    @Override
+    public Boolean removeLearningLessonById(Long courseId) {
+        // Long userId = UserContext.getUser();
+        Long userId = 8888L;
+        return lambdaUpdate().eq(LearningLesson::getCourseId, courseId)
+                .eq(LearningLesson::getUserId, userId)
+                .remove();
+    }
+
+    @Override
+    public Long checkCourseValid(Long courseId) {
+        Long userId = UserContext.getUser();
+        LearningLesson learningLesson = lambdaQuery().eq(LearningLesson::getUserId, userId)
+                .eq(LearningLesson::getCourseId, courseId)
+                .one();
+        if (learningLesson == null) {
+            return null;
+        }
+        return learningLesson.getId();
+    }
+
+    @Override
+    public Integer countLearningUser(Long courseId) {
+        return lambdaQuery().eq(LearningLesson::getCourseId, courseId).count();
     }
 }
