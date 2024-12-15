@@ -1,7 +1,5 @@
 package com.shuai.common.utils;
 
-
-
 import com.shuai.common.constants.ErrorInfo;
 import com.shuai.common.exceptions.BadRequestException;
 

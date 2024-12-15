@@ -24,10 +24,10 @@ import java.util.List;
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements ICourseService {
 
     @Override
-    public List<CourseSimpleInfoDTO> selectListByIds(List<Long> ids) {
-        List<Course> courseList = baseMapper.selectBatchIds(ids);
-        if (CollectionUtil.isEmpty(courseList)) {
-            return null;
+            public List<CourseSimpleInfoDTO> selectListByIds(List<Long> ids) {
+                List<Course> courseList = baseMapper.selectBatchIds(ids);
+                if (CollectionUtil.isEmpty(courseList)) {
+                    return null;
         }
         return BeanUtil.copyToList(courseList, CourseSimpleInfoDTO.class);
     }

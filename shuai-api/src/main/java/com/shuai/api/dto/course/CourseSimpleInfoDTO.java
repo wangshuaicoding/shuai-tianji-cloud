@@ -25,4 +25,7 @@ public class CourseSimpleInfoDTO {
 
     @ApiModelProperty(value = "课程有效期，单位月")
     private Integer validDuration;
+
+    @ApiModelProperty(value = "课程总节数，包括练习")
+    private Integer sectionNum;
 }

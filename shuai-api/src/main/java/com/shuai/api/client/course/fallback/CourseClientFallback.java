@@ -24,7 +24,7 @@ public class CourseClientFallback implements FallbackFactory<CourseClient> {
         log.error("触发降级处理，查询用户服务出现异常:{}", throwable.getMessage());
         return new CourseClient() {
             @Override
-            public List<CourseSimpleInfoDTO> selectListByIds(List<Long> ids) {
+            public List<CourseSimpleInfoDTO> selectListByIds(Iterable<Long> ids) {
                 log.error("根据课程ids批量查询课程服务出现异常:{}", throwable.getMessage());
                 return null;
             }

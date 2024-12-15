@@ -2,17 +2,23 @@ package com.shuai.auth.controller.learning;
 
 
 import com.shuai.auth.constants.CourseConstants;
+import com.shuai.auth.constants.LessonConstants;
+import com.shuai.auth.domain.dto.LearningPlansDTO;
 import com.shuai.auth.domain.vo.LearningLessonVO;
+import com.shuai.auth.domain.vo.LearningPlansVO;
 import com.shuai.auth.service.ILearningLessonService;
 import com.shuai.common.domain.R;
 import com.shuai.common.domain.dto.PageDTO;
 import com.shuai.common.domain.query.PageQuery;
 import com.shuai.common.exceptions.BadRequestException;
+import com.shuai.common.exceptions.DbException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * <p>
@@ -67,5 +73,18 @@ public class LearningLessonController {
     @GetMapping("/{courseId}/count")
     public Integer countLearningUser(@PathVariable("courseId") Long courseId) {
         return learningLessonService.countLearningUser(courseId);
+    }
+
+    @ApiOperation("创建学习计划")
+    @PostMapping("/plans")
+    public R createLearningPlan(@RequestBody @Valid LearningPlansDTO plansDTO) {
+        learningLessonService.createLearningPlan(plansDTO);
+        return R.ok();
+    }
+
+    @ApiOperation("查询学习计划进度")
+    @GetMapping("/plans")
+    public R<LearningPlansVO> queryLearningPlans(PageQuery pageQuery) {
+        return R.ok(learningLessonService.queryLearningPlans(pageQuery));
     }
 }

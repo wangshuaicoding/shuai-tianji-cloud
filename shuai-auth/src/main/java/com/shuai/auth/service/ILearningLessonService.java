@@ -1,8 +1,10 @@
 package com.shuai.auth.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.shuai.auth.domain.dto.LearningPlansDTO;
 import com.shuai.auth.domain.po.LearningLesson;
 import com.shuai.auth.domain.vo.LearningLessonVO;
+import com.shuai.auth.domain.vo.LearningPlansVO;
 import com.shuai.common.domain.dto.PageDTO;
 import com.shuai.common.domain.query.PageQuery;
 
@@ -31,4 +33,8 @@ public interface ILearningLessonService extends IService<LearningLesson> {
     Long checkCourseValid(Long courseId);
 
     Integer countLearningUser(Long courseId);
+
+    void createLearningPlan(LearningPlansDTO plansDTO);
+
+    LearningPlansVO queryLearningPlans(PageQuery pageQuery);
 }

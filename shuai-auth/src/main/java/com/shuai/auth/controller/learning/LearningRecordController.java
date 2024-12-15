@@ -1,6 +1,7 @@
 package com.shuai.auth.controller.learning;
 
 
+import com.shuai.auth.domain.dto.LearningPlansDTO;
 import com.shuai.auth.domain.dto.LearningRecordFormDTO;
 import com.shuai.auth.domain.vo.LearningProgressVO;
 import com.shuai.auth.service.ILearningRecordService;

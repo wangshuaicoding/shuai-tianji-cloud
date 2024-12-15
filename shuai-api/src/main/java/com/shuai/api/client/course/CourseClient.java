@@ -15,7 +15,7 @@ import java.util.List;
 public interface CourseClient {
 
     @GetMapping("/course/simpleInfo/list")
-    List<CourseSimpleInfoDTO> selectListByIds(@RequestParam("ids") List<Long> ids);
+    List<CourseSimpleInfoDTO> selectListByIds(@RequestParam("ids") Iterable<Long> ids);
 
     /**
      * 根据id查询课程详情
