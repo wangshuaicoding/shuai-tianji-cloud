@@ -17,6 +17,11 @@ public interface CourseClient {
     @GetMapping("/course/simpleInfo/list")
     List<CourseSimpleInfoDTO> selectListByIds(@RequestParam("ids") List<Long> ids);
 
+    /**
+     * 根据id查询课程详情
+     * @param id
+     * @return
+     */
     @GetMapping("/course/fullInfo/{id}")
     CourseFullInfoDTO selectFullInfoById(@PathVariable("id") Long id);
 }
