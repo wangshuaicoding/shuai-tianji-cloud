@@ -16,6 +16,7 @@ import com.shuai.auth.enums.SectionTypeStatus;
 import com.shuai.auth.mapper.LearningRecordMapper;
 import com.shuai.auth.service.ILearningLessonService;
 import com.shuai.auth.service.ILearningRecordService;
+import com.shuai.auth.util.LearningRecordDelayTaskHandler;
 import com.shuai.common.exceptions.BadRequestException;
 import com.shuai.common.exceptions.DbException;
 import com.shuai.common.exceptions.OpenFeignException;
@@ -42,6 +43,7 @@ public class LearningRecordServiceImpl extends ServiceImpl<LearningRecordMapper,
     private final ILearningLessonService learningLessonService;
 
     private final CourseClient courseClient;
+    private final LearningRecordDelayTaskHandler taskHandler;
 
     @Override
     public LearningProgressVO queryLearningRecord(Long courseId) {
@@ -82,27 +84,28 @@ public class LearningRecordServiceImpl extends ServiceImpl<LearningRecordMapper,
             finished = handleExam(formDTO, userId);
         }
 
+        if (!finished) {
+            // 没有新学完的小节，无需更新课表
+            return;
+        }
+
         LearningLesson lesson = learningLessonService.getById(formDTO.getLessonId());
         if (lesson == null) {
             throw new BadRequestException(LessonConstants.LESSON_NOT_EXIST);
         }
 
+        // 判断是否有新的完成小节
         boolean flag = false;
-        if (finished) {
-            CourseFullInfoDTO fullInfoDTO = courseClient.selectFullInfoById(lesson.getCourseId());
-            if (fullInfoDTO == null) {
-                throw new OpenFeignException(CourseConstants.COURSE_NOT_EXIST);
-            }
-            flag = lesson.getLearnedSections() + 1 >= fullInfoDTO.getSectionNum();
+        CourseFullInfoDTO fullInfoDTO = courseClient.selectFullInfoById(lesson.getCourseId());
+        if (fullInfoDTO == null) {
+            throw new OpenFeignException(CourseConstants.COURSE_NOT_EXIST);
         }
+        flag = lesson.getLearnedSections() + 1 >= fullInfoDTO.getSectionNum();
 
         learningLessonService.lambdaUpdate()
                 .set(flag, LearningLesson::getStatus, LessonStatus.COMPLETED)
-                .set(!finished, LearningLesson::getLatestLearnTime, formDTO.getCommitTime())
-                .set(!finished, LearningLesson::getLatestSectionId, formDTO.getSectionId())
-                .setSql(finished, "learned_sections = learned_sections + 1")
-                .eq(LearningLesson::getCourseId, lesson.getCourseId())
-                .eq(LearningLesson::getUserId, userId)
+                .setSql( "learned_sections = learned_sections + 1")
+                .eq(LearningLesson::getId,lesson.getId())
                 .update();
     }
 
@@ -120,12 +123,9 @@ public class LearningRecordServiceImpl extends ServiceImpl<LearningRecordMapper,
 
     private Boolean handleVideo(LearningRecordFormDTO formDTO, Long userId) {
 
-        LearningRecord one = lambdaQuery().eq(LearningRecord::getLessonId, formDTO.getLessonId())
-                .eq(LearningRecord::getSectionId, formDTO.getSectionId())
-                .eq(LearningRecord::getUserId, userId)
-                .one();
+        LearningRecord old = queryOldRecord(formDTO.getLessonId(),formDTO.getSectionId());
 
-        if (one == null) {
+        if (old == null) {
             // 没有学习过，添加学习记录
             LearningRecord learningRecord = BeanUtils.copyBean(formDTO, LearningRecord.class);
             learningRecord.setUserId(userId);
@@ -137,18 +137,45 @@ public class LearningRecordServiceImpl extends ServiceImpl<LearningRecordMapper,
             return false;
         }
         // 判断是否是第一次完成
-        Boolean finished = !one.getFinished() && formDTO.getMoment() >= formDTO.getDuration() >> 1;
-
+        Boolean finished = !old.getFinished() && formDTO.getMoment() >= formDTO.getDuration() >> 1;
+        if (!finished) {
+            LearningRecord record = new LearningRecord();
+            record.setLessonId(formDTO.getLessonId());
+            record.setSectionId(formDTO.getSectionId());
+            record.setMoment(formDTO.getMoment());
+            record.setId(old.getId());
+            record.setFinished(old.getFinished());
+            taskHandler.addLearningRecordTask(record);
+            return false;
+        }
         boolean success = lambdaUpdate()
                 .set(LearningRecord::getMoment, formDTO.getMoment())
                 .set(LearningRecord::getFinishTime, formDTO.getCommitTime())
                 .set(LearningRecord::getFinished, true)
-                .eq(LearningRecord::getId, one.getId())
+                .eq(LearningRecord::getId, old.getId())
                 .update();
         if (!success) {
             throw new DbException(LearningRecordConstants.FAILED_UPDATE_LEARNING_RECORDS);
         }
-        return finished;
+        // 清除缓存
+        taskHandler.cleanRecordCache(formDTO.getLessonId(),formDTO.getSectionId());
+        return true;
+    }
+
+    private LearningRecord queryOldRecord(Long lessonId, Long sectionId) {
+        // 1、查询缓存
+        LearningRecord record = taskHandler.readRecordCache(lessonId, sectionId);
+        if (record != null) {
+            return record;
+        }
+
+        // 未命中，查询数据库
+        record = lambdaQuery().eq(LearningRecord::getLessonId, lessonId)
+                .eq(LearningRecord::getSectionId, sectionId)
+                .one();
+        // 写入缓存
+        taskHandler.writeRecordCache(record);
+        return record;
     }
 
 }
