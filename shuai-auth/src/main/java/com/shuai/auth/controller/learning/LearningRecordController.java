@@ -33,7 +33,7 @@ public class LearningRecordController {
         return R.ok(learningRecordService.queryLearningRecord(courseId));
     }
 
-    @ApiOperation("提供学习记录")
+    @ApiOperation("提交学习记录")
     @PostMapping
     public R saveLearningRecord(@RequestBody @Valid LearningRecordFormDTO formDTO) {
         learningRecordService.saveLearningRecord(formDTO);

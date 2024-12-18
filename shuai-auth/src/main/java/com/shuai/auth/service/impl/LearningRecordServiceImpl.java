@@ -124,7 +124,6 @@ public class LearningRecordServiceImpl extends ServiceImpl<LearningRecordMapper,
     private Boolean handleVideo(LearningRecordFormDTO formDTO, Long userId) {
 
         LearningRecord old = queryOldRecord(formDTO.getLessonId(),formDTO.getSectionId());
-
         if (old == null) {
             // 没有学习过，添加学习记录
             LearningRecord learningRecord = BeanUtils.copyBean(formDTO, LearningRecord.class);
@@ -137,7 +136,7 @@ public class LearningRecordServiceImpl extends ServiceImpl<LearningRecordMapper,
             return false;
         }
         // 判断是否是第一次完成
-        Boolean finished = !old.getFinished() && formDTO.getMoment() >= formDTO.getDuration() >> 1;
+        boolean finished = !old.getFinished() && formDTO.getMoment() >= formDTO.getDuration() >> 1;
         if (!finished) {
             LearningRecord record = new LearningRecord();
             record.setLessonId(formDTO.getLessonId());
@@ -174,7 +173,9 @@ public class LearningRecordServiceImpl extends ServiceImpl<LearningRecordMapper,
                 .eq(LearningRecord::getSectionId, sectionId)
                 .one();
         // 写入缓存
-        taskHandler.writeRecordCache(record);
+        if (record != null) {
+            taskHandler.writeRecordCache(record);
+        }
         return record;
     }
 
