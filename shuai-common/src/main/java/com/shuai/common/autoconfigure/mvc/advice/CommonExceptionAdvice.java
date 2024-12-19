@@ -39,9 +39,10 @@ public class CommonExceptionAdvice {
     }
 
     @ExceptionHandler(FeignException.class)
-    public Object handleFeignException(FeignException e) {
+    public R<Object> handleFeignException(FeignException e) {
         log.error("feign远程调用异常 -> ", e);
-        return processResponse(e.status(), e.status(), e.contentUTF8());
+        // return processResponse(e.status(), e.status(), e.contentUTF8());
+        return R.error(e.status(), e.contentUTF8());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

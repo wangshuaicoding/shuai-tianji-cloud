@@ -6,18 +6,17 @@ import com.shuai.common.enums.BaseEnum;
 import lombok.Getter;
 
 @Getter
-public enum SectionTypeStatus implements BaseEnum {
-    VIDEO(1, "视频"),
-    EXAMINATION(2,"考试"),
+public enum QuestionStatus implements BaseEnum {
+    NOT_VIEWED(0, "未查看"),
+    VIEWED(1,"已查看"),
     ;
 
     @JsonValue
     @EnumValue
-    final
-    int value;
-    String desc;
+    private final int value;
+    private final String desc;
 
-    SectionTypeStatus(int value, String desc) {
+    QuestionStatus(int value, String desc) {
         this.value = value;
         this.desc = desc;
     }
