@@ -10,5 +10,6 @@ public class InteractionQuestionConstants {
 
     public static final String FAILED_DELETE_INTERACTION_ISSUE = "删除互动问题失败";
 
+    public static final String FAILED_HIDE_OR_SHOW_PROBLEM = "管理端隐藏或显示问题失败";
 
 }

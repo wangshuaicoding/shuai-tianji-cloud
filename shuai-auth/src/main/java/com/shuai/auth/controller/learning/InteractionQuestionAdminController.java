@@ -33,4 +33,18 @@ public class InteractionQuestionAdminController {
     public R<PageDTO<InteractionQuestionAdminVO>> queryInteractionQuestionAdminPage(InteractionQuestionAdminPage queryPage) {
         return R.ok(questionService.queryInteractionQuestionAdminPage(queryPage));
     }
+
+    @ApiOperation("管理端隐藏或显示问题")
+    @PutMapping("/{id}/hidden/{hidden}")
+    public R hiddenQuestion(@PathVariable("id") Long id, @PathVariable("hidden") Boolean hidden) {
+        questionService.hiddenQuestion(id, hidden);
+        return R.ok();
+    }
+
+    @ApiOperation("管理端根据id查询问题详情")
+    @GetMapping("/{id}")
+    public R<InteractionQuestionAdminVO> queryQuestionById(@PathVariable("id") Long id) {
+        return R.ok(questionService.queryAdminQuestionById(id));
+    }
+
 }

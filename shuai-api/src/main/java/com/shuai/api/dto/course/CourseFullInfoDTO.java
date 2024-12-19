@@ -1,9 +1,12 @@
 package com.shuai.api.dto.course;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 public class CourseFullInfoDTO {
@@ -74,4 +77,11 @@ public class CourseFullInfoDTO {
     @ApiModelProperty(value = "最近一次发布时间")
     private LocalDateTime publishTime;
 
+    @ApiModelProperty("老师列表")
+    private List<Long> teacherIds;
+
+    @JsonIgnore
+    public List<Long> getCategoryIds() {
+        return Arrays.asList(firstCateId, secondCateId, thirdCateId);
+    }
 }

@@ -47,4 +47,7 @@ public class InteractionQuestionAdminVO {
     @ApiModelProperty(value = "分类名称1/分类名称2/分类名称3")
     private String categoryName;
 
+    @ApiModelProperty(value = "老师名称")
+    private String teacherName;
+
 }

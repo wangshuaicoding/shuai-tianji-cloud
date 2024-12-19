@@ -1,7 +1,11 @@
 package com.shuai.auth.service;
 
+import com.shuai.auth.domain.dto.InteractionReplyFormDTO;
 import com.shuai.auth.domain.po.InteractionReply;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.shuai.auth.domain.query.InteractionReplyPage;
+import com.shuai.auth.domain.vo.InteractionReplyVO;
+import com.shuai.common.domain.dto.PageDTO;
 
 /**
  * <p>
@@ -13,4 +17,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IInteractionReplyService extends IService<InteractionReply> {
 
+    void createInteractionReply(InteractionReplyFormDTO formDTO);
+
+    PageDTO<InteractionReplyVO> queryInteractionReplyPage(InteractionReplyPage pageQuery);
 }

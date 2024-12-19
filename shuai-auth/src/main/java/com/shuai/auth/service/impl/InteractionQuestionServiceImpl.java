@@ -6,6 +6,7 @@ import com.shuai.api.client.course.CatalogueClient;
 import com.shuai.api.client.course.CourseClient;
 import com.shuai.api.client.user.UserClient;
 import com.shuai.api.dto.course.CataSimpleInfoDTO;
+import com.shuai.api.dto.course.CourseFullInfoDTO;
 import com.shuai.api.dto.course.CourseSimpleInfoDTO;
 import com.shuai.api.dto.user.UserDTO;
 import com.shuai.auth.constants.InteractionQuestionConstants;
@@ -32,10 +33,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -264,5 +262,56 @@ public class InteractionQuestionServiceImpl extends ServiceImpl<InteractionQuest
             result.add(vo);
         }
         return PageDTO.of(page,result);
+    }
+
+    @Override
+    public void hiddenQuestion(Long id, Boolean hidden) {
+        boolean success = lambdaUpdate()
+                .set(InteractionQuestion::getHidden, hidden)
+                .eq(InteractionQuestion::getId, id)
+                .update();
+
+        if (!success) {
+            throw new DbException(InteractionQuestionConstants.FAILED_HIDE_OR_SHOW_PROBLEM);
+        }
+    }
+
+    @Override
+    public InteractionQuestionAdminVO queryAdminQuestionById(Long id) {
+        InteractionQuestion question = baseMapper.selectById(id);
+        if (question == null) {
+            throw new DbException(InteractionQuestionConstants.INTERACTION_PROBLEM_NOT_EXIST);
+        }
+
+        InteractionQuestionAdminVO vo = BeanUtils.copyBean(question, InteractionQuestionAdminVO.class);
+        List<Long> userIds = new ArrayList<>();
+        userIds.add(question.getUserId());
+
+        // 查询课程信息
+        CourseFullInfoDTO courseDTO = courseClient.selectFullInfoById(question.getCourseId());
+        if (courseDTO != null) {
+            vo.setCourseName(courseDTO.getName());
+            vo.setCategoryName(categoryCache.getCategoryName(courseDTO.getCategoryIds()));
+            userIds.addAll(courseDTO.getTeacherIds());
+            List<UserDTO> userDTOS = userClient.queryUserByIds(userIds);
+            if (CollUtils.isNotEmpty(userDTOS)) {
+                Map<Long, String> cMap = userDTOS.stream().collect(Collectors.toMap(UserDTO::getId, UserDTO::getName));
+                vo.setUserName(cMap.getOrDefault(question.getUserId(),""));
+                vo.setTeacherName(cMap.getOrDefault(courseDTO.getTeacherIds().get(0),""));
+            }
+        }
+
+        // 封装章节信息
+        List<CataSimpleInfoDTO> cataDTOList = catalogueClient.batchQuery(Arrays.asList(question.getChapterId(), question.getSectionId()));
+        Map<Long, String> cMap = null;
+        if (CollUtils.isNotEmpty(cataDTOList)) {
+            cMap = cataDTOList.stream().collect(Collectors.toMap(CataSimpleInfoDTO::getId, CataSimpleInfoDTO::getName));
+        }
+        if (cMap != null) {
+            vo.setChapterName(cMap.getOrDefault(question.getChapterId(),""));
+            vo.setSectionName(cMap.getOrDefault(question.getSectionId(),""));
+        }
+
+        return vo;
     }
 }
