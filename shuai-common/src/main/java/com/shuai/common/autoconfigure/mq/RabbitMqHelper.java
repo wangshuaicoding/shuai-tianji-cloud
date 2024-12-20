@@ -18,16 +18,21 @@ import static com.shuai.common.constants.Constant.REQUEST_ID_HEADER;
 public class RabbitMqHelper {
 
     private final RabbitTemplate rabbitTemplate;
+    // 消息处理器
     private final MessagePostProcessor processor = new BasicIdMessageProcessor();
     private final ThreadPoolTaskExecutor executor;
 
+    /**
+     * 核心线程数要与最大线程数一样：这样设置的好处可以避免 CPU 频繁上下文切换。
+     * @param rabbitTemplate
+     */
     public RabbitMqHelper(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
         executor = new ThreadPoolTaskExecutor();
         //配置核心线程数
-        executor.setCorePoolSize(10);
+        executor.setCorePoolSize(16);
         //配置最大线程数
-        executor.setMaxPoolSize(15);
+        executor.setMaxPoolSize(16);
         //配置队列大小
         executor.setQueueCapacity(99999);
         //配置线程池中的线程的名称前缀
