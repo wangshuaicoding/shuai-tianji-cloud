@@ -1,4 +1,4 @@
-package com.shuai.user.controller;
+package com.shuai.user.controller.remark;
 
 
 import com.shuai.common.domain.R;
@@ -6,12 +6,11 @@ import com.shuai.user.domain.dto.LikedRecordFormDTO;
 import com.shuai.user.service.ILikedRecordService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -33,5 +32,11 @@ public class LikedRecordController {
     public R likeOrUnlikeRecord(@RequestBody @Valid LikedRecordFormDTO formDTO) {
         likedRecordService.likeOrUnlikeRecord(formDTO);
         return R.ok();
+    }
+
+    @ApiOperation("查询当前用户是否点赞了指定的业务")
+    @GetMapping("/list")
+    public Set<Long> isBizLiked(@RequestParam("bizIds") List<Long> bizIds) {
+        return likedRecordService.isBizLiked(bizIds);
     }
 }

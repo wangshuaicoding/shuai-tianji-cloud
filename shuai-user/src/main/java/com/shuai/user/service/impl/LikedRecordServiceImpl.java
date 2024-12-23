@@ -1,5 +1,6 @@
 package com.shuai.user.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shuai.api.dto.remark.LikedTimesDTO;
 import com.shuai.common.autoconfigure.mq.RabbitMqHelper;
 import com.shuai.common.constants.MqConstants;
@@ -11,10 +12,13 @@ import com.shuai.user.domain.dto.LikedRecordFormDTO;
 import com.shuai.user.domain.po.LikedRecord;
 import com.shuai.user.mapper.LikedRecordMapper;
 import com.shuai.user.service.ILikedRecordService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -24,7 +28,7 @@ import org.springframework.stereotype.Service;
  * @author Shuai
  * @since 2024-12-20
  */
-@Service
+// @Service
 @RequiredArgsConstructor
 @Slf4j
 public class LikedRecordServiceImpl extends ServiceImpl<LikedRecordMapper, LikedRecord> implements ILikedRecordService {
@@ -85,5 +89,23 @@ public class LikedRecordServiceImpl extends ServiceImpl<LikedRecordMapper, Liked
             throw new DbException(LikedRecordConstants.FAILED_DELETE_LIKES_RECORD);
         }
         return true;
+    }
+
+
+    @Override
+    public Set<Long> isBizLiked(List<Long> bizIds) {
+        Long userId = UserContext.getUser();
+
+        List<LikedRecord> list = lambdaQuery()
+                .eq(LikedRecord::getUserId, userId)
+                .in(LikedRecord::getBizId, bizIds)
+                .list();
+
+        return list.stream().map(LikedRecord::getBizId).collect(Collectors.toSet());
+    }
+
+    @Override
+    public void readLikedTimesAndSendMessage(String bizType, int maxBizSize) {
+
     }
 }
