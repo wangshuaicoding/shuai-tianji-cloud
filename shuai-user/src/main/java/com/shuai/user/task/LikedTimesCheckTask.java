@@ -19,6 +19,7 @@ public class LikedTimesCheckTask {
 
     private final ILikedRecordService likedRecordService;
 
+    // todo 更改为XXL-job的方式试试
     @Scheduled(fixedDelay = 20000)
     public void checkLikedTimes() {
         for (String bizType : BIZ_TYPES) {
