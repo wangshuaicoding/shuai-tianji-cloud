@@ -72,6 +72,10 @@ public class PointsRecordServiceImpl extends ServiceImpl<PointsRecordMapper, Poi
         if (!success) {
             throw new DbException(PointsRecordConstants.ADD_POINTS_RECORD_ERROR);
         }
+
+        // 更新总积分到redis中
+        String key = RedisConstants.POINTS_BOARD_KEY_PREFIX + now.format(DateUtils.POINTS_BOARD_SUFFIX_FORMATTER);
+        redisTemplate.opsForZSet().incrementScore(key, userId.toString(), realPoints);
     }
 
     @Override
