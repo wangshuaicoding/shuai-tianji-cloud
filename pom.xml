@@ -23,6 +23,7 @@
         <module>shuai-auth</module>
         <module>shuai-user</module>
         <module>shuai-message</module>
+        <module>shuai-xxl-job</module>
     </modules>
 
     <properties>
@@ -45,7 +46,7 @@
         <mysql.version>8.0.23</mysql.version>
         <redisson.version>3.13.6</redisson.version>
         <elasticsearch.version>7.12.1</elasticsearch.version>
-        <xxl-job-version>2.3.1</xxl-job-version>
+        <xxl-job-version>2.4.2</xxl-job-version>
         <seata-version>1.5.1</seata-version>
     </properties>
     <!-- 对依赖包进行管理 -->
