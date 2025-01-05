@@ -35,7 +35,7 @@ public class RedissonConfig {
     @Bean
     @ConditionalOnMissingBean
     public RedissonClient redissonClient(RedisProperties properties){
-        log.debug("尝试初始化RedissonClient");
+        log.info("尝试初始化RedissonClient");
         // 1.读取Redis配置
         RedisProperties.Cluster cluster = properties.getCluster();
         RedisProperties.Sentinel sentinel = properties.getSentinel();

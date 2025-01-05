@@ -11,12 +11,18 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Configuration
 @ConditionalOnClass(XxlJobSpringExecutor.class)
+// 这个注解用于显式地将带有@ConfigurationProperties注解的类注册为 Spring 的Bean,即加入到IOC容器中
 @EnableConfigurationProperties(XxlJobProperties.class)
 public class XxlJobConfig {
 
+    /**
+     * XxlJobSpringExecutor : 这是一个用于管理 XXL-JOB 任务调度的执行器类
+     * @param prop
+     * @return
+     */
     @Bean
     public XxlJobSpringExecutor xxlJobExecutor(XxlJobProperties prop) {
-        log.info(">>>>>>>>>>> xxl-job config init.");
+        log.info(">>>>>>>>>>> xxl-job config init.>>>>>>>>>>>>");
         XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();
         XxlJobProperties.Admin admin = prop.getAdmin();
         if (admin != null && StringUtils.isNotEmpty(admin.getAddress())) {
@@ -37,7 +43,7 @@ public class XxlJobConfig {
         }
         if (prop.getAccessToken() != null)
             xxlJobSpringExecutor.setAccessToken(prop.getAccessToken());
-        log.info(">>>>>>>>>>> xxl-job config end.");
+        log.info(">>>>>>>>>>> xxl-job config end.>>>>>>>>>>>>>>");
         return xxlJobSpringExecutor;
     }
 }

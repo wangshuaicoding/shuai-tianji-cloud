@@ -1,25 +1,43 @@
 package com.shuai.api.dto.course;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 public class CourseSimpleInfoDTO {
 
-    @ApiModelProperty(value = "课程名称")
+    @ApiModelProperty("课程id")
+    private Long id;
+    @ApiModelProperty("课程名称")
     private String name;
-
-    @ApiModelProperty(value = "封面链接")
+    @ApiModelProperty("封面url")
     private String coverUrl;
-
-    @ApiModelProperty(value = "售卖方式0付费，1：免费")
-    private Integer free;
-
-    @ApiModelProperty(value = "课程价格，单位为分")
+    @ApiModelProperty("价格")
     private Integer price;
-
-    @ApiModelProperty(value = "课程有效期，单位月")
+    @ApiModelProperty("课程状态")
+    private Integer status;
+    @ApiModelProperty("是否是免费课程")
+    private Boolean free;
+    @ApiModelProperty("一级分类id")
+    private Long firstCateId;
+    @ApiModelProperty("二级分类id")
+    private Long secondCateId;
+    @ApiModelProperty("三级分类id")
+    private Long thirdCateId;
+    @ApiModelProperty("小节数量")
+    private Integer sectionNum;
+    @ApiModelProperty("课程购买有效期结束时间")
+    private LocalDateTime purchaseEndTime;
+    @ApiModelProperty("课程学习有效期，单位：月")
     private Integer validDuration;
+
+    @JsonIgnore
+    public List<Long> getCategoryIds() {
+        return Arrays.asList(firstCateId, secondCateId, thirdCateId);
+    }
 }

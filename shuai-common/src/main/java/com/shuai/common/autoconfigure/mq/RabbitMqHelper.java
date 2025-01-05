@@ -18,16 +18,21 @@ import static com.shuai.common.constants.Constant.REQUEST_ID_HEADER;
 public class RabbitMqHelper {
 
     private final RabbitTemplate rabbitTemplate;
+    // 消息处理器
     private final MessagePostProcessor processor = new BasicIdMessageProcessor();
     private final ThreadPoolTaskExecutor executor;
 
+    /**
+     * 核心线程数要与最大线程数一样：这样设置的好处可以避免 CPU 频繁上下文切换。
+     * @param rabbitTemplate
+     */
     public RabbitMqHelper(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
         executor = new ThreadPoolTaskExecutor();
         //配置核心线程数
-        executor.setCorePoolSize(10);
+        executor.setCorePoolSize(16);
         //配置最大线程数
-        executor.setMaxPoolSize(15);
+        executor.setMaxPoolSize(16);
         //配置队列大小
         executor.setQueueCapacity(99999);
         //配置线程池中的线程的名称前缀
@@ -44,7 +49,7 @@ public class RabbitMqHelper {
      * 根据exchange和routingKey发送消息
      */
     public <T> void send(String exchange, String routingKey, T t) {
-        log.debug("准备发送消息，exchange：{}， RoutingKey：{}， message：{}", exchange, routingKey,t);
+        log.info("准备发送消息，exchange：{}， RoutingKey：{}， message：{}", exchange, routingKey,t);
         // 1.设置消息标示，用于消息确认，消息发送失败直接抛出异常，交给调用者处理
         String id = UUID.randomUUID().toString(true);
         // 用于消息确认，包含消息的唯一标识符。如果消息发送失败，可以通过这个标识符进行追踪和处理。

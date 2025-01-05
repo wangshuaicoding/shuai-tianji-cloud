@@ -17,3 +17,8 @@ logs
 job
 
 templates
+
+# 测试案例不往 git 上提交了
+test
+
+\target
