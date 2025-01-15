@@ -1,0 +1,14 @@
+spring:
+  redis:
+    # host: ${shuai.redis.host:172.0.0.1}
+    # host: 172.0.0.1
+    # password: ${shuai.redis.password:123456}
+    password: 123456
+    port: 6379
+    timeout: 1000
+    lettuce:
+      pool:
+        max-active: ${shuai.redis.pool.max-active:1000}
+        max-idle: ${shuai.redis.pool.max-idle:8}
+        min-idle: ${shuai.redis.pool.min-idle:1}
+        max-wait: ${shuai.redis.pool.max-wait:300}
