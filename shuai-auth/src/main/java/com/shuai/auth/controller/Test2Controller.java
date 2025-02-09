@@ -5,10 +5,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping
-public class TestController {
+public class Test2Controller {
 
     public static void main(String[] args) {
-        System.out.println("hello world=====1");
-        System.out.println("hello world=====2");
+        System.out.println("hello world=====test2=====1");
     }
 }
